@@ -1,0 +1,127 @@
+import { Link, useLocation } from "react-router-dom";
+import { Menu, X } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Button } from "@/components/ui/button";
+import { ThemeToggle } from "@/components/ThemeToggle";
+import { BookCallDialog } from "@/components/BookCallDialog";
+import logo from "@/assets/logo.png";
+import logoDark from "@/assets/logo-dark.png";
+
+const navLinks = [
+  { href: "/", label: "Home" },
+  { href: "/services", label: "Services" },
+  { href: "/who-we-serve", label: "Who We Serve" },
+  { href: "/about", label: "About" },
+  { href: "/team", label: "Our Team" },
+  { href: "/contact", label: "Contact" },
+];
+
+export function Header() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isDark, setIsDark] = useState(false);
+  const location = useLocation();
+
+  useEffect(() => {
+    const checkTheme = () => {
+      setIsDark(document.documentElement.classList.contains("dark"));
+    };
+
+    checkTheme();
+
+    // Watch for theme changes
+    const observer = new MutationObserver(checkTheme);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class']
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <header className="sticky top-0 z-50 w-full border-b border-border bg-background/80 backdrop-blur-lg text-foreground transition-colors duration-300">
+      <div className="container flex h-16 items-center justify-between md:h-20">
+        {/* Logo with Company Name */}
+        <Link to="/" className="flex items-center gap-2">
+          <img
+            src={isDark ? logoDark : logo}
+            alt="SpaceTech Consulting"
+            className="h-10 w-auto md:h-12"
+          />
+          <div className="flex items-baseline">
+            <span className="text-xl md:text-2xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+              SpaceTech
+            </span>
+            <span className="hidden sm:inline text-xl md:text-2xl font-bold ml-1">Consulting</span>
+          </div>
+        </Link>
+
+        {/* Desktop Navigation - Centered and balanced */}
+        <nav className="hidden flex-1 justify-center items-center gap-8 lg:flex">
+          {navLinks.map((link) => (
+            <Link
+              key={link.href}
+              to={link.href}
+              className={`text-sm font-medium transition-colors hover:text-primary ${location.pathname === link.href
+                ? "text-primary border-b-2 border-primary"
+                : "text-muted-foreground"
+                }`}
+            >
+              {link.label}
+            </Link>
+          ))}
+        </nav>
+
+        {/* Desktop Actions */}
+        <div className="hidden items-center gap-3 lg:flex">
+          <ThemeToggle />
+          <BookCallDialog />
+        </div>
+
+        {/* Mobile Menu Button */}
+        <div className="flex items-center gap-2 lg:hidden">
+          <ThemeToggle />
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            aria-label="Toggle menu"
+            className="text-foreground hover:bg-muted"
+          >
+            {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </Button>
+        </div>
+      </div>
+
+      {/* Mobile Navigation */}
+      {isMenuOpen && (
+        <div className="border-t border-border bg-background lg:hidden text-foreground">
+          <nav className="container flex flex-col gap-4 py-4">
+            {navLinks.map((link) => (
+              <Link
+                key={link.href}
+                to={link.href}
+                onClick={() => setIsMenuOpen(false)}
+                className={`text-sm font-medium transition-colors hover:text-primary ${location.pathname === link.href
+                  ? "text-primary font-bold"
+                  : "text-muted-foreground"
+                  }`}
+              >
+                {link.label}
+              </Link>
+            ))}
+            <div className="pt-2">
+              <BookCallDialog
+                trigger={
+                  <Button className="w-full" onClick={() => setIsMenuOpen(false)}>
+                    Book a Call
+                  </Button>
+                }
+              />
+            </div>
+          </nav>
+        </div>
+      )}
+    </header>
+  );
+}
