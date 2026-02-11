@@ -43,24 +43,19 @@ const Contact = () => {
     try {
       const serviceLabel = services.find(s => s.value === formData.service)?.label || formData.service;
 
-      const data = {
-        access_key: "YOUR_WEB3FORMS_ACCESS_KEY", // Get yours from web3forms.com
-        name: `${formData.firstName} ${formData.lastName}`,
-        email: formData.email,
-        phone: formData.phone,
-        service: serviceLabel,
-        message: formData.message,
-        subject: "New Contact Form Submission - SpaceTech",
-        from_name: "SpaceTech Website"
-      };
-
-      const response = await fetch("https://api.web3forms.com/submit", {
+      const response = await fetch("http://localhost:5000/api/contact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Accept": "application/json"
         },
-        body: JSON.stringify(data)
+        body: JSON.stringify({
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          email: formData.email,
+          phone: formData.phone,
+          service: serviceLabel,
+          message: formData.message
+        })
       });
 
       const result = await response.json();
@@ -82,6 +77,7 @@ const Contact = () => {
         throw new Error(result.message || "Failed to send message");
       }
     } catch (error) {
+      console.error("Contact form error:", error);
       toast({
         title: "Error",
         description: "Failed to send message. Please try again.",
@@ -158,10 +154,10 @@ const Contact = () => {
                   </CardHeader>
                   <CardContent>
                     <a
-                      href="mailto:info@spacetechconsulting.com"
+                      href="mailto:aryanthealgohype@gmail.com"
                       className="text-muted-foreground transition-colors hover:text-primary"
                     >
-                      info@spacetechconsulting.com
+                      aryanthealgohype@gmail.com
                     </a>
                   </CardContent>
                 </Card>

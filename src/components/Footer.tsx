@@ -119,10 +119,19 @@ export function Footer() {
               </li>
               <li>
                 <a
-                  href="mailto:info@spacetechconsulting.com"
+                  href="tel:+918587951091"
                   className="text-sm text-muted-foreground transition-colors hover:text-primary"
                 >
-                  <span className="break-all">info@spacetechconsulting.com</span>
+                  +91 8587951091
+                </a>
+              </li>
+              <li>
+                <a
+                  href="mailto:aryanthealgohype@gmail.com"
+                  className="flex items-center space-x-3 text-gray-400 hover:text-white transition-colors group"
+                >
+                  <Mail className="h-5 w-5 text-purple-500 group-hover:scale-110 transition-transform" />
+                  <span className="break-all">aryanthealgohype@gmail.com</span>
                 </a>
               </li>
             </ul>

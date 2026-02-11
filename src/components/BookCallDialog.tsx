@@ -8,25 +8,16 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import { CalendarCheck } from "lucide-react";
 
 const services = [
-  { value: "consulting", label: "Yardi Consulting" },
-  { value: "reporting", label: "Reporting & Business Intelligence" },
-  { value: "integrations", label: "System Integrations" },
-  { value: "automation", label: "Automation & Workflows" },
-  { value: "support", label: "Managed BAU Support" },
-  { value: "data", label: "Data Engineering" },
+  "Yardi Consulting",
+  "Reporting & Business Intelligence",
+  "System Integrations",
+  "Automation & Workflows",
+  "Managed BAU Support",
+  "Data Engineering",
 ];
 
 interface BookCallDialogProps {
@@ -37,38 +28,27 @@ export function BookCallDialog({ trigger }: BookCallDialogProps) {
   const { toast } = useToast();
   const [open, setOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    service: "",
-  });
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
 
     try {
-      // Important: Use the state data directly
-      const serviceLabel = services.find(s => s.value === formData.service)?.label || formData.service;
-
-      const body = {
-        access_key: "YOUR_WEB3FORMS_ACCESS_KEY", // Get yours from web3forms.com
-        name: formData.name,
-        email: formData.email,
-        phone: formData.phone,
-        service: serviceLabel,
-        subject: "New Strategy Call Request - SpaceTech",
-        from_name: "SpaceTech Website"
+      const formData = new FormData(e.currentTarget);
+      const data = {
+        name: formData.get('name') as string,
+        email: formData.get('email') as string,
+        phone: formData.get('phone') as string,
+        service: formData.get('service') as string,
+        message: formData.get('message') as string || "Strategy Call Request",
       };
 
-      const response = await fetch("https://api.web3forms.com/submit", {
+      const response = await fetch("http://localhost:5000/api/contact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Accept: "application/json",
         },
-        body: JSON.stringify(body),
+        body: JSON.stringify(data),
       });
 
       const result = await response.json();
@@ -79,11 +59,12 @@ export function BookCallDialog({ trigger }: BookCallDialogProps) {
           description: "We'll contact you within 24 hours to schedule your call.",
         });
         setOpen(false);
-        setFormData({ name: "", email: "", phone: "", service: "" });
+        e.currentTarget.reset();
       } else {
         throw new Error(result.message || "Something went wrong");
       }
     } catch (error) {
+      console.error("Book call error:", error);
       toast({
         title: "Error",
         description: "Failed to submit request. Please try again.",
@@ -112,60 +93,55 @@ export function BookCallDialog({ trigger }: BookCallDialogProps) {
           </DialogDescription>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-4 pt-4">
-          <div className="space-y-2">
-            <Label htmlFor="name">Full Name</Label>
-            <Input
-              id="name"
-              placeholder="John Doe"
-              value={formData.name}
-              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-              required
-            />
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="email">Email</Label>
-            <Input
-              id="email"
-              type="email"
-              placeholder="john@company.com"
-              value={formData.email}
-              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-              required
-            />
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="phone">Phone Number</Label>
-            <Input
-              id="phone"
-              type="tel"
-              placeholder="+1 (555) 000-0000"
-              value={formData.phone}
-              onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-              required
-            />
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="service">Service Interested In</Label>
-            <Select
-              value={formData.service}
-              onValueChange={(value) => setFormData({ ...formData, service: value })}
-              required
-            >
-              <SelectTrigger>
-                <SelectValue placeholder="Select a service" />
-              </SelectTrigger>
-              <SelectContent>
-                {services.map((service) => (
-                  <SelectItem key={service.value} value={service.value}>
-                    {service.label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-          <Button type="submit" className="w-full" disabled={isSubmitting}>
+          <input
+            name="name"
+            placeholder="Full Name"
+            required
+            className="w-full p-3 border rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-primary"
+          />
+
+          <input
+            name="email"
+            type="email"
+            placeholder="Email Address"
+            required
+            className="w-full p-3 border rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-primary"
+          />
+
+          <input
+            name="phone"
+            placeholder="Phone Number"
+            required
+            className="w-full p-3 border rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-primary"
+          />
+
+          <select
+            name="service"
+            required
+            className="w-full p-3 border rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-primary"
+          >
+            <option value="">Select Service</option>
+            {services.map((service) => (
+              <option key={service} value={service}>
+                {service}
+              </option>
+            ))}
+          </select>
+
+          <textarea
+            name="message"
+            placeholder="Tell us about your project"
+            rows={3}
+            className="w-full p-3 border rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-primary resize-none"
+          />
+
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className="w-full bg-primary text-primary-foreground p-3 rounded-lg hover:bg-primary/90 transition disabled:opacity-50 disabled:cursor-not-allowed"
+          >
             {isSubmitting ? "Submitting..." : "Request a Call"}
-          </Button>
+          </button>
         </form>
       </DialogContent>
     </Dialog>
