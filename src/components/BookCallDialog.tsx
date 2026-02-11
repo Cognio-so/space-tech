@@ -11,6 +11,7 @@ import {
 import { useToast } from "@/hooks/use-toast";
 import { CalendarCheck } from "lucide-react";
 import { contactEndpoint } from "@/lib/api";
+import { isContactSubmissionSuccessful, parseContactResponse } from "@/lib/contact-response";
 
 const services = [
   "Yardi Consulting",
@@ -58,17 +59,10 @@ export function BookCallDialog({ trigger }: BookCallDialogProps) {
       }
 
       const rawResponse = await response.text();
-      let result: { success?: boolean; message?: string } = {};
+      const result = parseContactResponse(rawResponse);
+      const isSuccessful = isContactSubmissionSuccessful(response.ok, result);
 
-      if (rawResponse) {
-        try {
-          result = JSON.parse(rawResponse) as { success?: boolean; message?: string };
-        } catch {
-          result = { message: rawResponse };
-        }
-      }
-
-      if (result.success !== false) {
+      if (isSuccessful) {
         toast({
           title: "Request submitted!",
           description: "We'll contact you within 24 hours to schedule your call.",
@@ -76,7 +70,7 @@ export function BookCallDialog({ trigger }: BookCallDialogProps) {
         setOpen(false);
         form.reset();
       } else {
-        throw new Error(result.message || "Something went wrong");
+        throw new Error(result.message || `Request failed with ${response.status}`);
       }
     } catch (error) {
       console.error("Book call error:", error);

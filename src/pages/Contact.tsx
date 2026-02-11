@@ -15,6 +15,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { contactEndpoint } from "@/lib/api";
+import { isContactSubmissionSuccessful, parseContactResponse } from "@/lib/contact-response";
 import {
   CONTACT_EMAIL,
   CONTACT_PHONE_AU_DISPLAY,
@@ -66,22 +67,11 @@ const Contact = () => {
         })
       });
 
-      if (!response.ok) {
-        throw new Error(`Request failed with ${response.status}`);
-      }
-
       const rawResponse = await response.text();
-      let result: { success?: boolean; message?: string } = {};
+      const result = parseContactResponse(rawResponse);
+      const isSuccessful = isContactSubmissionSuccessful(response.ok, result);
 
-      if (rawResponse) {
-        try {
-          result = JSON.parse(rawResponse) as { success?: boolean; message?: string };
-        } catch {
-          result = { message: rawResponse };
-        }
-      }
-
-      if (result.success !== false) {
+      if (isSuccessful) {
         toast({
           title: "Message sent!",
           description: "We'll get back to you within 24 hours.",
@@ -95,7 +85,7 @@ const Contact = () => {
           message: ""
         });
       } else {
-        throw new Error(result.message || "Failed to send message");
+        throw new Error(result.message || `Request failed with ${response.status}`);
       }
     } catch (error) {
       console.error("Contact form error:", error);
