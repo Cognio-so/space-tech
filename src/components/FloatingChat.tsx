@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { MessageCircle, X, CalendarCheck } from "lucide-react";
+import { MessageCircle, X, CalendarCheck, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { CONTACT_PHONE_US_DISPLAY, CONTACT_PHONE_US_URL, CONTACT_WHATSAPP_URL } from "@/lib/contact";
 
 export function FloatingChat() {
   const [isOpen, setIsOpen] = useState(false);
@@ -27,6 +28,30 @@ export function FloatingChat() {
           >
             <CalendarCheck className="h-5 w-5" />
             Book a Call
+          </Button>
+        </a>
+
+        {/* WhatsApp */}
+        <a href={CONTACT_WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
+          <Button
+            size="lg"
+            variant="outline"
+            className="gap-2 rounded-full shadow-lg hover:shadow-xl transition-shadow"
+          >
+            <MessageCircle className="h-5 w-5 text-green-500" />
+            WhatsApp
+          </Button>
+        </a>
+
+        {/* Call */}
+        <a href={CONTACT_PHONE_US_URL}>
+          <Button
+            size="lg"
+            variant="outline"
+            className="gap-2 rounded-full shadow-lg hover:shadow-xl transition-shadow"
+          >
+            <Phone className="h-5 w-5 text-blue-500" />
+            {CONTACT_PHONE_US_DISPLAY}
           </Button>
         </a>
 

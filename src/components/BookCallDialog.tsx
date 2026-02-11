@@ -57,9 +57,18 @@ export function BookCallDialog({ trigger }: BookCallDialogProps) {
         throw new Error(`Request failed with ${response.status}`);
       }
 
-      const result = await response.json();
+      const rawResponse = await response.text();
+      let result: { success?: boolean; message?: string } = {};
 
-      if (result.success) {
+      if (rawResponse) {
+        try {
+          result = JSON.parse(rawResponse) as { success?: boolean; message?: string };
+        } catch {
+          result = { message: rawResponse };
+        }
+      }
+
+      if (result.success !== false) {
         toast({
           title: "Request submitted!",
           description: "We'll contact you within 24 hours to schedule your call.",

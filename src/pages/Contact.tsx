@@ -15,6 +15,13 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { contactEndpoint } from "@/lib/api";
+import {
+  CONTACT_EMAIL,
+  CONTACT_PHONE_AU_DISPLAY,
+  CONTACT_PHONE_AU_URL,
+  CONTACT_PHONE_US_DISPLAY,
+  CONTACT_PHONE_US_URL,
+} from "@/lib/contact";
 
 const services = [
   { value: "consulting", label: "Yardi Consulting" },
@@ -63,9 +70,18 @@ const Contact = () => {
         throw new Error(`Request failed with ${response.status}`);
       }
 
-      const result = await response.json();
+      const rawResponse = await response.text();
+      let result: { success?: boolean; message?: string } = {};
 
-      if (result.success) {
+      if (rawResponse) {
+        try {
+          result = JSON.parse(rawResponse) as { success?: boolean; message?: string };
+        } catch {
+          result = { message: rawResponse };
+        }
+      }
+
+      if (result.success !== false) {
         toast({
           title: "Message sent!",
           description: "We'll get back to you within 24 hours.",
@@ -131,10 +147,10 @@ const Contact = () => {
                   </CardHeader>
                   <CardContent>
                     <a
-                      href="tel:+14158708418"
+                      href={CONTACT_PHONE_US_URL}
                       className="text-muted-foreground transition-colors hover:text-primary"
                     >
-                      +1 (415) 870-8418
+                      {CONTACT_PHONE_US_DISPLAY}
                     </a>
                   </CardContent>
                 </Card>
@@ -145,10 +161,10 @@ const Contact = () => {
                   </CardHeader>
                   <CardContent>
                     <a
-                      href="tel:+61468040481"
+                      href={CONTACT_PHONE_AU_URL}
                       className="text-muted-foreground transition-colors hover:text-primary"
                     >
-                      +61 468040481
+                      {CONTACT_PHONE_AU_DISPLAY}
                     </a>
                   </CardContent>
                 </Card>
@@ -159,10 +175,10 @@ const Contact = () => {
                   </CardHeader>
                   <CardContent>
                     <a
-                      href="mailto:info@spacetechconsulting.com"
+                      href={`mailto:${CONTACT_EMAIL}`}
                       className="text-muted-foreground transition-colors hover:text-primary"
                     >
-                      info@spacetechconsulting.com
+                      {CONTACT_EMAIL}
                     </a>
                   </CardContent>
                 </Card>
