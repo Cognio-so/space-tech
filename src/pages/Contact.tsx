@@ -15,7 +15,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { contactEndpoint } from "@/lib/api";
-import { isContactSubmissionSuccessful, parseContactResponse } from "@/lib/contact-response";
 import {
   CONTACT_EMAIL,
   CONTACT_PHONE_AU_DISPLAY,
@@ -23,6 +22,7 @@ import {
   CONTACT_PHONE_US_DISPLAY,
   CONTACT_PHONE_US_URL,
 } from "@/lib/contact";
+import { isContactSubmissionSuccessful, parseContactResponse } from "@/lib/contact-response";
 
 const services = [
   { value: "consulting", label: "Yardi Consulting" },
@@ -63,32 +63,38 @@ const Contact = () => {
           email: formData.email,
           phone: formData.phone,
           service: serviceLabel,
-          message: formData.message
-        })
+          message: formData.message,
+        }),
       });
 
       const rawResponse = await response.text();
       const result = parseContactResponse(rawResponse);
       const isSuccessful = isContactSubmissionSuccessful(response.ok, result);
 
-      if (isSuccessful) {
-        toast({
-          title: "Message sent!",
-          description: "We'll get back to you within 24 hours.",
-        });
-        setFormData({
-          firstName: "",
-          lastName: "",
-          email: "",
-          phone: "",
-          service: "",
-          message: ""
-        });
-      } else {
+      if (!response.ok || !isSuccessful) {
         throw new Error(result.message || `Request failed with ${response.status}`);
       }
+
+      toast({
+        title: "Message sent!",
+        description: "We'll get back to you within 24 hours.",
+      });
+      setFormData({
+        firstName: "",
+        lastName: "",
+        email: "",
+        phone: "",
+        service: "",
+        message: ""
+      });
     } catch (error) {
       console.error("Contact form error:", error);
+      const message = error instanceof Error ? error.message : "Failed to send message.";
+      toast({
+        title: "Error",
+        description: message,
+        variant: "destructive",
+      });
     } finally {
       setIsSubmitting(false);
     }

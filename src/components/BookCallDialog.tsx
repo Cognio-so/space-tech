@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, type FormEvent, type ReactNode } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -23,7 +23,7 @@ const services = [
 ];
 
 interface BookCallDialogProps {
-  trigger?: React.ReactNode;
+  trigger?: ReactNode;
 }
 
 export function BookCallDialog({ trigger }: BookCallDialogProps) {
@@ -31,7 +31,7 @@ export function BookCallDialog({ trigger }: BookCallDialogProps) {
   const [open, setOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
     const form = e.currentTarget;
@@ -54,26 +54,28 @@ export function BookCallDialog({ trigger }: BookCallDialogProps) {
         body: JSON.stringify(data),
       });
 
-      if (!response.ok) {
-        throw new Error(`Request failed with ${response.status}`);
-      }
-
       const rawResponse = await response.text();
       const result = parseContactResponse(rawResponse);
       const isSuccessful = isContactSubmissionSuccessful(response.ok, result);
 
-      if (isSuccessful) {
-        toast({
-          title: "Request submitted!",
-          description: "We'll contact you within 24 hours to schedule your call.",
-        });
-        setOpen(false);
-        form.reset();
-      } else {
+      if (!response.ok || !isSuccessful) {
         throw new Error(result.message || `Request failed with ${response.status}`);
       }
+
+      toast({
+        title: "Request submitted!",
+        description: "We'll contact you within 24 hours to schedule your call.",
+      });
+      setOpen(false);
+      form.reset();
     } catch (error) {
       console.error("Book call error:", error);
+      const message = error instanceof Error ? error.message : "Failed to submit request.";
+      toast({
+        title: "Error",
+        description: message,
+        variant: "destructive",
+      });
     } finally {
       setIsSubmitting(false);
     }
