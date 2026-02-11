@@ -45,7 +45,7 @@ export function Footer() {
               <img
                 src={isDark ? logoDark : logo}
                 alt="SpaceTech Consulting"
-                className="h-16 w-auto transition-transform hover:scale-105 duration-300"
+                className="h-20 w-auto transition-transform hover:scale-105 duration-300"
               />
             </Link>
             <p className="text-sm text-muted-foreground">
@@ -119,19 +119,11 @@ export function Footer() {
               </li>
               <li>
                 <a
-                  href="tel:+918587951091"
-                  className="text-sm text-muted-foreground transition-colors hover:text-primary"
-                >
-                  +91 8587951091
-                </a>
-              </li>
-              <li>
-                <a
-                  href="mailto:aryanthealgohype@gmail.com"
+                  href="mailto:info@spacetechconsulting.com"
                   className="flex items-center space-x-3 text-gray-400 hover:text-white transition-colors group"
                 >
                   <Mail className="h-5 w-5 text-purple-500 group-hover:scale-110 transition-transform" />
-                  <span className="break-all">aryanthealgohype@gmail.com</span>
+                  <span className="break-all">info@spacetechconsulting.com</span>
                 </a>
               </li>
             </ul>

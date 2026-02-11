@@ -14,6 +14,7 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
+import { contactEndpoint } from "@/lib/api";
 
 const services = [
   { value: "consulting", label: "Yardi Consulting" },
@@ -43,7 +44,7 @@ const Contact = () => {
     try {
       const serviceLabel = services.find(s => s.value === formData.service)?.label || formData.service;
 
-      const response = await fetch("http://localhost:5000/api/contact", {
+      const response = await fetch(contactEndpoint, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -57,6 +58,10 @@ const Contact = () => {
           message: formData.message
         })
       });
+
+      if (!response.ok) {
+        throw new Error(`Request failed with ${response.status}`);
+      }
 
       const result = await response.json();
 
@@ -154,10 +159,10 @@ const Contact = () => {
                   </CardHeader>
                   <CardContent>
                     <a
-                      href="mailto:aryanthealgohype@gmail.com"
+                      href="mailto:info@spacetechconsulting.com"
                       className="text-muted-foreground transition-colors hover:text-primary"
                     >
-                      aryanthealgohype@gmail.com
+                      info@spacetechconsulting.com
                     </a>
                   </CardContent>
                 </Card>

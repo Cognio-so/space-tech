@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
 import { CalendarCheck } from "lucide-react";
+import { contactEndpoint } from "@/lib/api";
 
 const services = [
   "Yardi Consulting",
@@ -32,9 +33,10 @@ export function BookCallDialog({ trigger }: BookCallDialogProps) {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
+    const form = e.currentTarget;
 
     try {
-      const formData = new FormData(e.currentTarget);
+      const formData = new FormData(form);
       const data = {
         name: formData.get('name') as string,
         email: formData.get('email') as string,
@@ -43,13 +45,17 @@ export function BookCallDialog({ trigger }: BookCallDialogProps) {
         message: formData.get('message') as string || "Strategy Call Request",
       };
 
-      const response = await fetch("http://localhost:5000/api/contact", {
+      const response = await fetch(contactEndpoint, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(data),
       });
+
+      if (!response.ok) {
+        throw new Error(`Request failed with ${response.status}`);
+      }
 
       const result = await response.json();
 
@@ -59,7 +65,7 @@ export function BookCallDialog({ trigger }: BookCallDialogProps) {
           description: "We'll contact you within 24 hours to schedule your call.",
         });
         setOpen(false);
-        e.currentTarget.reset();
+        form.reset();
       } else {
         throw new Error(result.message || "Something went wrong");
       }
