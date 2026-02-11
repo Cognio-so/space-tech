@@ -74,11 +74,6 @@ export function BookCallDialog({ trigger }: BookCallDialogProps) {
       }
     } catch (error) {
       console.error("Book call error:", error);
-      toast({
-        title: "Error",
-        description: "Failed to submit request. Please try again.",
-        variant: "destructive",
-      });
     } finally {
       setIsSubmitting(false);
     }
