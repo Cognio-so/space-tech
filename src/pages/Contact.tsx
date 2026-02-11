@@ -44,6 +44,7 @@ const Contact = () => {
       const serviceLabel = services.find(s => s.value === formData.service)?.label || formData.service;
 
       const data = {
+        access_key: "YOUR_WEB3FORMS_ACCESS_KEY", // Get yours from web3forms.com
         name: `${formData.firstName} ${formData.lastName}`,
         email: formData.email,
         phone: formData.phone,
@@ -53,10 +54,11 @@ const Contact = () => {
         from_name: "SpaceTech Website"
       };
 
-      const response = await fetch("/api/contact", {
+      const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "Accept": "application/json"
         },
         body: JSON.stringify(data)
       });

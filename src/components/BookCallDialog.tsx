@@ -53,6 +53,7 @@ export function BookCallDialog({ trigger }: BookCallDialogProps) {
       const serviceLabel = services.find(s => s.value === formData.service)?.label || formData.service;
 
       const body = {
+        access_key: "YOUR_WEB3FORMS_ACCESS_KEY", // Get yours from web3forms.com
         name: formData.name,
         email: formData.email,
         phone: formData.phone,
@@ -61,7 +62,7 @@ export function BookCallDialog({ trigger }: BookCallDialogProps) {
         from_name: "SpaceTech Website"
       };
 
-      const response = await fetch("/api/contact", {
+      const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
