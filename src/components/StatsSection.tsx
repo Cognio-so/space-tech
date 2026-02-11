@@ -1,10 +1,9 @@
 import { useEffect, useState, useRef } from "react";
 
 const stats = [
-  { value: 50, suffix: "+", label: "Enterprise Clients" },
-  { value: 200, suffix: "+", label: "Projects Delivered" },
-  { value: 15, suffix: "+", label: "Years Experience" },
-  { value: 99, suffix: "%", label: "Client Satisfaction" },
+  { value: 10, suffix: "+", label: "Enterprise Clients" },
+  { value: 100, suffix: "+", label: "Projects" },
+  { value: 17, suffix: "yrs", label: "Experience" },
 ];
 
 function useCountUp(end: number, duration: number = 2000, start: number = 0) {
@@ -54,7 +53,7 @@ export function StatsSection() {
   return (
     <section className="py-16 md:py-20 bg-gradient-to-r from-primary to-accent">
       <div className="container">
-        <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
+        <div className="grid grid-cols-1 gap-8 sm:grid-cols-3">
           {stats.map((stat, index) => {
             const { count, ref } = useCountUp(stat.value);
             return (

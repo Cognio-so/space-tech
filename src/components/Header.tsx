@@ -41,19 +41,13 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border bg-background/80 backdrop-blur-lg text-foreground transition-colors duration-300">
       <div className="container flex h-16 items-center justify-between md:h-20">
-        {/* Logo with Company Name */}
+        {/* Logo Link */}
         <Link to="/" className="flex items-center gap-2">
           <img
             src={isDark ? logoDark : logo}
             alt="SpaceTech Consulting"
-            className="h-10 w-auto md:h-12"
+            className="h-16 w-auto md:h-20 transition-transform hover:scale-105 duration-300"
           />
-          <div className="flex items-baseline">
-            <span className="text-xl md:text-2xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-              SpaceTech
-            </span>
-            <span className="hidden sm:inline text-xl md:text-2xl font-bold ml-1">Consulting</span>
-          </div>
         </Link>
 
         {/* Desktop Navigation - Centered and balanced */}
@@ -63,7 +57,7 @@ export function Header() {
               key={link.href}
               to={link.href}
               className={`text-sm font-medium transition-colors hover:text-primary ${location.pathname === link.href
-                ? "text-primary border-b-2 border-primary"
+                ? "text-primary dark:text-white border-b-2 border-primary dark:border-white"
                 : "text-muted-foreground"
                 }`}
             >
@@ -96,7 +90,14 @@ export function Header() {
       {/* Mobile Navigation */}
       {isMenuOpen && (
         <div className="border-t border-border bg-background lg:hidden text-foreground">
-          <nav className="container flex flex-col gap-4 py-4">
+          <nav className="container flex flex-col gap-4 py-6">
+            <div className="flex items-center justify-between mb-4">
+              <img
+                src={isDark ? logoDark : logo}
+                alt="SpaceTech Consulting"
+                className="h-14 w-auto"
+              />
+            </div>
             {navLinks.map((link) => (
               <Link
                 key={link.href}

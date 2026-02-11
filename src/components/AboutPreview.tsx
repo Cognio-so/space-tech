@@ -45,12 +45,11 @@ export function AboutPreview() {
             </Button>
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-2">
             {[
-              { label: "Enterprise Clients", value: "50+" },
-              { label: "Projects Delivered", value: "200+" },
-              { label: "Years Experience", value: "15+" },
-              { label: "Global Offices", value: "3" },
+              { label: "Enterprise Clients", value: "10+" },
+              { label: "Projects", value: "100+" },
+              { label: "Experience", value: "17yrs" },
             ].map((stat, index) => (
               <div
                 key={stat.label}

@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import { Mail, Phone } from "lucide-react";
+import { useState, useEffect } from "react";
 import logo from "@/assets/logo.png";
+import logoDark from "@/assets/logo-dark.png";
 
 const footerLinks = {
   services: [
@@ -21,6 +23,18 @@ const footerLinks = {
 const regions = ["Australia", "India", "USA"];
 
 export function Footer() {
+  const [isDark, setIsDark] = useState(false);
+
+  useEffect(() => {
+    const checkTheme = () => {
+      setIsDark(document.documentElement.classList.contains("dark"));
+    };
+    checkTheme();
+    const observer = new MutationObserver(checkTheme);
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <footer className="border-t bg-card">
       <div className="container py-12 md:py-16">
@@ -28,10 +42,11 @@ export function Footer() {
           {/* Brand */}
           <div className="space-y-4">
             <Link to="/" className="flex items-center gap-2">
-              <img src={logo} alt="SpaceTech Consulting" className="h-10 w-auto" />
-              <span className="text-lg font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-                SpaceTech
-              </span>
+              <img
+                src={isDark ? logoDark : logo}
+                alt="SpaceTech Consulting"
+                className="h-16 w-auto transition-transform hover:scale-105 duration-300"
+              />
             </Link>
             <p className="text-sm text-muted-foreground">
               Enterprise Yardi & PropTech Consulting Partner. Bringing out the best in Yardi.
@@ -88,18 +103,26 @@ export function Footer() {
             <ul className="space-y-3">
               <li>
                 <a
-                  href="tel:+918587951091"
+                  href="tel:+14158708418"
                   className="text-sm text-muted-foreground transition-colors hover:text-primary"
                 >
-                  +91 8587951091
+                  +1 (415) 870-8418
                 </a>
               </li>
               <li>
                 <a
-                  href="mailto:aryanthealgohype@gmail.com"
+                  href="tel:+61468040481"
                   className="text-sm text-muted-foreground transition-colors hover:text-primary"
                 >
-                  <span className="break-all">aryanthealgohype@gmail.com</span>
+                  +61 468040481
+                </a>
+              </li>
+              <li>
+                <a
+                  href="mailto:info@spacetechconsulting.com"
+                  className="text-sm text-muted-foreground transition-colors hover:text-primary"
+                >
+                  <span className="break-all">info@spacetechconsulting.com</span>
                 </a>
               </li>
             </ul>

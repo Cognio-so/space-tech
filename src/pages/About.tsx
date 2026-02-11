@@ -29,10 +29,9 @@ const values = [
 ];
 
 const stats = [
-  { value: "50+", label: "Enterprise Clients" },
-  { value: "200+", label: "Projects Delivered" },
-  { value: "15+", label: "Years Experience" },
-  { value: "3", label: "Global Offices" },
+  { value: "10+", label: "Enterprise Clients" },
+  { value: "100+", label: "Projects" },
+  { value: "17+", label: "Years Experience" },
 ];
 
 const About = () => {
@@ -80,7 +79,7 @@ const About = () => {
       {/* Stats */}
       <section className="py-16 bg-gradient-to-r from-primary to-accent">
         <div className="container">
-          <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
+          <div className="grid grid-cols-1 gap-8 sm:grid-cols-3">
             {stats.map((stat) => (
               <div key={stat.label} className="text-center">
                 <p className="text-4xl font-bold text-primary-foreground md:text-5xl">{stat.value}</p>

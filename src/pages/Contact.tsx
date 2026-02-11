@@ -124,14 +124,28 @@ const Contact = () => {
 
                 <Card className="glass-card border-0">
                   <CardHeader className="pb-2">
-                    <CardTitle className="text-base">Phone</CardTitle>
+                    <CardTitle className="text-base">Phone (USA)</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <a
-                      href="tel:+918587951091"
+                      href="tel:+14158708418"
                       className="text-muted-foreground transition-colors hover:text-primary"
                     >
-                      +91 8587951091
+                      +1 (415) 870-8418
+                    </a>
+                  </CardContent>
+                </Card>
+
+                <Card className="glass-card border-0">
+                  <CardHeader className="pb-2">
+                    <CardTitle className="text-base">Phone (Australia)</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <a
+                      href="tel:+61468040481"
+                      className="text-muted-foreground transition-colors hover:text-primary"
+                    >
+                      +61 468040481
                     </a>
                   </CardContent>
                 </Card>
@@ -142,10 +156,10 @@ const Contact = () => {
                   </CardHeader>
                   <CardContent>
                     <a
-                      href="mailto:aryanthealgohype@gmail.com"
+                      href="mailto:info@spacetechconsulting.com"
                       className="text-muted-foreground transition-colors hover:text-primary"
                     >
-                      aryanthealgohype@gmail.com
+                      info@spacetechconsulting.com
                     </a>
                   </CardContent>
                 </Card>
