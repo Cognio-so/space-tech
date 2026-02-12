@@ -47,7 +47,7 @@ export function Header() {
           <img
             src={isDark ? logoDark : logo}
             alt="SpaceTech Consulting"
-            className="h-20 w-auto md:h-24 transition-transform hover:scale-105 duration-300 dark:brightness-0 dark:invert"
+            className="h-20 w-auto md:h-24 blur-[1.5px] transition-transform hover:scale-105 duration-300 dark:brightness-0 dark:invert"
           />
         </Link>
 
@@ -96,7 +96,7 @@ export function Header() {
               <img
                 src={isDark ? logoDark : logo}
                 alt="SpaceTech Consulting"
-                className="h-[72px] w-auto dark:brightness-0 dark:invert"
+                className="h-[72px] w-auto blur-[1.5px] dark:brightness-0 dark:invert"
               />
             </div>
             {navLinks.map((link) => (

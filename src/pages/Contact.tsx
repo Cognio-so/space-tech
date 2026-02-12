@@ -47,6 +47,33 @@ const Contact = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!formData.firstName.trim() || !formData.lastName.trim() || !formData.email.trim()) {
+      toast({
+        title: "Missing details",
+        description: "Please fill your first name, last name, and email.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    if (!formData.service) {
+      toast({
+        title: "Select a service",
+        description: "Please choose the service you are interested in.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    if (!formData.message.trim()) {
+      toast({
+        title: "Add a message",
+        description: "Please describe your request so we can help you faster.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
@@ -60,9 +87,9 @@ const Contact = () => {
         },
         body: JSON.stringify({
           name: fullName,
-          email: formData.email,
-          phone: formData.phone,
-          message: formData.message,
+          email: formData.email.trim(),
+          phone: formData.phone.trim(),
+          message: formData.message.trim(),
           service: serviceLabel,
         }),
       });
@@ -91,7 +118,7 @@ const Contact = () => {
       console.error("Contact form error:", error);
       const message =
         error instanceof TypeError
-          ? "Unable to send right now. Please try again in a moment."
+          ? "Server is not reachable. Please start the API on http://localhost:3001."
           : error instanceof Error
             ? error.message
             : "Failed to send message.";
