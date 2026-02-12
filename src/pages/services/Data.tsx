@@ -1,19 +1,15 @@
 import { Layout } from "@/components/Layout";
 import { Link } from "react-router-dom";
-import { ArrowRight, Database, Check } from "lucide-react";
+import { ArrowRight, Database } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { CTABanner } from "@/components/CTABanner";
 import serviceData from "@/assets/service-data.jpg";
 
 const features = [
-  "ETL Pipeline Development",
-  "Data Quality Management",
-  "Data Migration Services",
-  "Data Warehouse Design",
-  "Master Data Management",
-  "Data Governance",
-  "Cloud Data Solutions",
-  "Data Lake Architecture",
+  "Legacy system data migration (Yardi ETL)",
+  "Data cleansing",
+  "Data mapping",
+  "Data load and validation",
 ];
 
 const benefits = [
@@ -45,10 +41,10 @@ const ServiceData = () => {
             <div className="mb-4 inline-flex h-16 w-16 items-center justify-center rounded-xl bg-primary/10">
               <Database className="h-8 w-8 text-primary" />
             </div>
-            <h1 className="section-heading mb-6">Data Engineering</h1>
+            <h1 className="section-heading mb-6">Data Migration</h1>
             <p className="text-lg text-muted-foreground md:text-xl">
-              Build robust data pipelines and ensure data quality across 
-              your property technology stack.
+              End-to-end data migration services — from extraction and data mapping to loading and
+              cleansing.
             </p>
           </div>
         </div>
@@ -59,19 +55,15 @@ const ServiceData = () => {
         <div className="container">
           <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
             <div className="order-2 lg:order-1 space-y-6">
-              <h2 className="text-3xl font-bold md:text-4xl">
-                Enterprise-Grade Data Solutions
-              </h2>
+              <h2 className="text-3xl font-bold md:text-4xl">Data Migration</h2>
               <p className="text-lg text-muted-foreground">
-                Our data engineering team builds scalable data pipelines, 
-                warehouses, and governance frameworks that ensure your property 
-                data is accurate, accessible, and actionable.
+                End-to-end data migration services — from extraction and data mapping to loading
+                and cleansing — ensuring your property data is accurate and ready from day one.
               </p>
               <ul className="grid gap-3 sm:grid-cols-2">
                 {features.map((feature) => (
-                  <li key={feature} className="flex items-center gap-2">
-                    <Check className="h-5 w-5 shrink-0 text-primary" />
-                    <span className="text-sm">{feature}</span>
+                  <li key={feature} className="text-sm text-muted-foreground">
+                    {feature}
                   </li>
                 ))}
               </ul>
@@ -85,7 +77,7 @@ const ServiceData = () => {
             <div className="order-1 lg:order-2 glass-card overflow-hidden p-2">
               <img
                 src={serviceData}
-                alt="Data Engineering"
+                alt="Data Migration"
                 className="aspect-video w-full rounded-lg object-cover"
               />
             </div>
@@ -97,7 +89,7 @@ const ServiceData = () => {
       <section className="border-y bg-muted/30 py-20 md:py-28">
         <div className="container">
           <div className="mx-auto mb-16 max-w-3xl text-center">
-            <h2 className="section-heading mb-4">Data Engineering Benefits</h2>
+            <h2 className="section-heading mb-4">Data Migration Benefits</h2>
             <p className="section-subheading mx-auto">
               Build a solid data foundation for your organization.
             </p>

@@ -18,7 +18,7 @@ const footerLinks = {
     { href: "/services/integrations", label: "System Integrations" },
     { href: "/services/automation", label: "Automation" },
     { href: "/services/support", label: "Managed Support" },
-    { href: "/services/data", label: "Data Engineering" },
+    { href: "/services/data", label: "Data Migration" },
   ],
   company: [
     { href: "/about", label: "About Us" },

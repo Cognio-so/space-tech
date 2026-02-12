@@ -37,7 +37,7 @@ const solutions = [
   },
   {
     problem: "Data Quality Issues",
-    solution: "Data Engineering",
+    solution: "Data Migration",
     description: "Ensure accurate, reliable data with robust ETL pipelines.",
     icon: Shield,
   },

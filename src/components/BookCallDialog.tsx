@@ -24,7 +24,7 @@ const services = [
   "System Integrations",
   "Automation & Workflows",
   "Managed BAU Support",
-  "Data Engineering",
+  "Data Migration",
 ];
 
 export function BookCallDialog({ trigger, open, onOpenChange }: BookCallDialogProps) {

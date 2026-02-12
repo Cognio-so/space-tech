@@ -30,7 +30,7 @@ const services = [
   { value: "integrations", label: "System Integrations" },
   { value: "automation", label: "Automation & Workflows" },
   { value: "support", label: "Managed BAU Support" },
-  { value: "data", label: "Data Engineering" },
+  { value: "data", label: "Data Migration" },
 ];
 
 const Contact = () => {

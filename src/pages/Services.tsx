@@ -56,10 +56,11 @@ const services = [
   },
   {
     id: "data",
-    title: "Data Engineering",
+    title: "Data Migration",
     image: serviceData,
     icon: Database,
-    description: "Build robust data pipelines and ensure data quality across your tech stack.",
+    description:
+      "End-to-end data migration services — from extraction and data mapping to loading and cleansing",
     link: "/services/data",
   },
 ];
