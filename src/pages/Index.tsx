@@ -1,6 +1,5 @@
 import { Layout } from "@/components/Layout";
 import { Hero } from "@/components/Hero";
-import { StatsSection } from "@/components/StatsSection";
 import { WhySpaceTech } from "@/components/WhySpaceTech";
 import { WhoWeServePreview } from "@/components/WhoWeServePreview";
 import { ServicesGrid } from "@/components/ServicesGrid";
@@ -11,7 +10,6 @@ const Index = () => {
   return (
     <Layout>
       <Hero />
-      <StatsSection />
       <WhySpaceTech />
       <WhoWeServePreview />
       <ServicesGrid />

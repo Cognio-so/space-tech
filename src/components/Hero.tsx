@@ -36,9 +36,7 @@ export function Hero() {
           style={{ animationDelay: "0.1s" }}
         >
           Enterprise Yardi Platform Ownership,{" "}
-          <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-            Proven at Scale in ANZ
-          </span>
+          <span className="text-primary">Proven at Scale in ANZ</span>
         </h1>
 
         {/* Tagline */}
