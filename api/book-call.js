@@ -5,20 +5,8 @@ const json = (res, statusCode, payload) => {
 };
 
 const setCorsHeaders = (req, res) => {
-  const configuredOrigins = (process.env.ALLOWED_ORIGINS || "")
-    .split(",")
-    .map((origin) => origin.trim())
-    .filter(Boolean);
-  const origin = req.headers.origin;
-
-  if (origin && configuredOrigins.includes(origin)) {
-    res.setHeader("Access-Control-Allow-Origin", origin);
-  } else if (configuredOrigins.length > 0) {
-    res.setHeader("Access-Control-Allow-Origin", configuredOrigins[0]);
-  } else {
-    res.setHeader("Access-Control-Allow-Origin", "*");
-  }
-
+  // Public form endpoint: allow cross-origin requests from frontend domains.
+  res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Vary", "Origin");
   res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
