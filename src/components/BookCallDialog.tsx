@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
 import { CalendarCheck } from "lucide-react";
-import { bookCallEndpoint } from "@/lib/api";
+import { bookCallEndpoint, contactEndpoint } from "@/lib/api";
 
 interface BookCallDialogProps {
   trigger?: ReactNode | null;
@@ -57,13 +57,27 @@ export function BookCallDialog({ trigger, open, onOpenChange }: BookCallDialogPr
     };
 
     try {
-      const response = await fetch(bookCallEndpoint, {
+      let response = await fetch(bookCallEndpoint, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(data),
       });
+
+      // Some deployments may not expose /api/book-call yet; fallback to /api/contact.
+      if (response.status === 404 && bookCallEndpoint !== contactEndpoint) {
+        response = await fetch(contactEndpoint, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            ...data,
+            message: data.message || "Book a Call request",
+          }),
+        });
+      }
 
       if (!response.ok) {
         throw new Error(`Request failed with ${response.status}`);
@@ -79,7 +93,7 @@ export function BookCallDialog({ trigger, open, onOpenChange }: BookCallDialogPr
       console.error("Submission error:", error);
       const message =
         error instanceof TypeError
-          ? "Backend not reachable. Start server with `npm run server`."
+          ? "Unable to submit right now. Please try again in a moment."
           : error instanceof Error
             ? error.message
             : "Something went wrong. Please try again.";

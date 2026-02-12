@@ -91,7 +91,7 @@ const Contact = () => {
       console.error("Contact form error:", error);
       const message =
         error instanceof TypeError
-          ? "Backend not reachable. Start server with `npm run server`."
+          ? "Unable to send right now. Please try again in a moment."
           : error instanceof Error
             ? error.message
             : "Failed to send message.";
