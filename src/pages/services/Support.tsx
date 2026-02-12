@@ -1,20 +1,9 @@
 import { Layout } from "@/components/Layout";
 import { Link } from "react-router-dom";
-import { ArrowRight, HeadphonesIcon, Check } from "lucide-react";
+import { ArrowRight, HeadphonesIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { CTABanner } from "@/components/CTABanner";
 import serviceSupport from "@/assets/service-support.jpg";
-
-const features = [
-  "Dedicated Ticket Support",
-  "System Enhancements",
-  "Performance Monitoring",
-  "Issue Resolution",
-  "User Support & Training",
-  "Regular Health Checks",
-  "SLA-backed Response",
-  "Proactive Maintenance",
-];
 
 const benefits = [
   {
@@ -23,7 +12,7 @@ const benefits = [
   },
   {
     title: "Expert Team",
-    description: "Certified Yardi professionals handling your requests.",
+    description: "Experienced Yardi professionals handling your requests.",
   },
   {
     title: "Fast Resolution",
@@ -74,14 +63,6 @@ const ServiceSupport = () => {
                 of Yardi experts who handle day-to-day support, enhancements, 
                 and monitoring so you can focus on your core business.
               </p>
-              <ul className="grid gap-3 sm:grid-cols-2">
-                {features.map((feature) => (
-                  <li key={feature} className="flex items-center gap-2">
-                    <Check className="h-5 w-5 shrink-0 text-primary" />
-                    <span className="text-sm">{feature}</span>
-                  </li>
-                ))}
-              </ul>
               <Button asChild className="group gap-2">
                 <Link to="/contact">
                   Get Started
