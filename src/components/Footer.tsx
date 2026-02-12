@@ -55,7 +55,7 @@ export function Footer() {
               />
             </Link>
             <p className="text-sm text-muted-foreground">
-              Enterprise Yardi & PropTech Consulting Partner. Bringing out the best in Yardi.
+              Enterprise Yardi Consulting Partner. Bringing out the best in Yardi.
             </p>
             <div className="flex flex-wrap gap-2">
               {regions.map((region) => (
@@ -139,9 +139,7 @@ export function Footer() {
           <p className="text-sm text-muted-foreground">
             (c) {new Date().getFullYear()} SpaceTech Consulting. All rights reserved.
           </p>
-          <p className="text-sm text-muted-foreground">
-            Enterprise Yardi & PropTech Consulting Partner
-          </p>
+          <p className="text-sm text-muted-foreground">Enterprise Yardi Consulting Partner</p>
         </div>
       </div>
     </footer>

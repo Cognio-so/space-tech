@@ -13,12 +13,12 @@ export function AboutPreview() {
             </span>
             <h2 className="section-heading">Your Strategic Yardi Partner</h2>
             <p className="text-lg text-muted-foreground">
-              SpaceTech Consulting is a global consulting firm specializing in
-              Yardi implementations, integrations, and property technology
-              solutions for the real estate industry.
+              SpaceTech Consulting is a global consulting firm delivering
+              comprehensive Yardi services across platform ownership,
+              implementation, data migration, integrations, and customizations.
             </p>
             <p className="text-muted-foreground">
-              With offices across Australia, India, and the USA, we provide 24/7
+              With presence across Australia, India, and the USA, we provide 24/7
               support and scalable delivery to meet your project needs.
             </p>
             <div className="flex flex-wrap gap-6 pt-4">
@@ -28,11 +28,7 @@ export function AboutPreview() {
               </div>
               <div className="flex items-center gap-2">
                 <Users className="h-5 w-5 text-primary" />
-                <span className="text-sm font-medium">Expert Team</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Award className="h-5 w-5 text-primary" />
-                <span className="text-sm font-medium">Certified Partners</span>
+                <span className="text-sm font-medium">Yardi Expertise</span>
               </div>
             </div>
             <Button asChild className="group gap-2">
