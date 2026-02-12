@@ -49,7 +49,7 @@ export function AboutPreview() {
             {[
               { label: "Enterprise Clients", value: "10+" },
               { label: "Projects", value: "100+" },
-              { label: "Experience", value: "17+yrs" },
+              { label: "Experience", value: "17+ yrs" },
             ].map((stat, index) => (
               <div
                 key={stat.label}
