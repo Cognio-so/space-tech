@@ -1,9 +1,10 @@
 import { Layout } from "@/components/Layout";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { ArrowRight, Settings, BarChart3, Plug, Cog, HeadphonesIcon, Database } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { CTABanner } from "@/components/CTABanner";
+import { useEffect } from "react";
 
 import serviceConsulting from "@/assets/service-consulting.jpg";
 import serviceReporting from "@/assets/service-reporting.jpg";
@@ -64,10 +65,23 @@ const services = [
 ];
 
 const Services = () => {
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.hash === "#top") {
+      const target = document.getElementById("services-top");
+      if (target) {
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+      } else {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+    }
+  }, [location.hash]);
+
   return (
     <Layout>
       {/* Hero */}
-      <section className="gradient-hero py-20 md:py-28">
+      <section id="services-top" className="gradient-hero py-20 md:py-28">
         <div className="container">
           <div className="mx-auto max-w-3xl text-center">
             <span className="mb-4 inline-block rounded-full bg-primary/10 px-4 py-2 text-sm font-medium text-primary">

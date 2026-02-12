@@ -34,7 +34,7 @@ export function CTABanner() {
                 size="lg"
                 className="bg-primary text-white hover:bg-primary/90 shadow-md px-8 transition-all duration-300 font-bold"
               >
-                <Link to="/services">Explore Services</Link>
+                <Link to="/services#top">Explore Services</Link>
               </Button>
             </div>
           </div>
