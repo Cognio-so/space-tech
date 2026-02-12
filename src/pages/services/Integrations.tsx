@@ -1,20 +1,9 @@
 import { Layout } from "@/components/Layout";
 import { Link } from "react-router-dom";
-import { ArrowRight, Plug, Check } from "lucide-react";
+import { ArrowRight, Plug } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { CTABanner } from "@/components/CTABanner";
 import serviceIntegrations from "@/assets/service-integrations.jpg";
-
-const features = [
-  "API Development & Integration",
-  "Third-Party System Connections",
-  "Payment Platform Integration",
-  "CRM & Marketing Systems",
-  "Accounting Systems",
-  "Document Management",
-  "Property Portals",
-  "IoT & Smart Building",
-];
 
 const benefits = [
   {
@@ -74,14 +63,6 @@ const ServiceIntegrations = () => {
                 your other business systems, creating a unified technology ecosystem 
                 that eliminates data silos and manual processes.
               </p>
-              <ul className="grid gap-3 sm:grid-cols-2">
-                {features.map((feature) => (
-                  <li key={feature} className="flex items-center gap-2">
-                    <Check className="h-5 w-5 shrink-0 text-primary" />
-                    <span className="text-sm">{feature}</span>
-                  </li>
-                ))}
-              </ul>
               <Button asChild className="group gap-2">
                 <Link to="/contact">
                   Get Started
