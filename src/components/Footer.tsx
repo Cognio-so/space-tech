@@ -51,7 +51,7 @@ export function Footer() {
               <img
                 src={isDark ? logoDark : logo}
                 alt="SpaceTech Consulting"
-                className="h-20 w-auto transition-transform hover:scale-105 duration-300"
+                className="h-20 w-auto transition-transform hover:scale-105 duration-300 dark:brightness-0 dark:invert"
               />
             </Link>
             <p className="text-sm text-muted-foreground">

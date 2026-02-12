@@ -10,8 +10,14 @@ import {
 } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
 import { CalendarCheck } from "lucide-react";
-import { contactEndpoint } from "@/lib/api";
+import { bookCallEndpoint } from "@/lib/api";
 import { isContactSubmissionSuccessful, parseContactResponse } from "@/lib/contact-response";
+
+interface BookCallDialogProps {
+  trigger?: ReactNode | null;
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
+}
 
 const services = [
   "Yardi Consulting",
@@ -22,31 +28,37 @@ const services = [
   "Data Engineering",
 ];
 
-interface BookCallDialogProps {
-  trigger?: ReactNode;
-}
-
-export function BookCallDialog({ trigger }: BookCallDialogProps) {
+export function BookCallDialog({ trigger, open, onOpenChange }: BookCallDialogProps) {
   const { toast } = useToast();
-  const [open, setOpen] = useState(false);
+  const [internalOpen, setInternalOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const isControlled = open !== undefined;
+  const dialogOpen = isControlled ? open : internalOpen;
+
+  const setDialogOpen = (nextOpen: boolean) => {
+    onOpenChange?.(nextOpen);
+    if (!isControlled) {
+      setInternalOpen(nextOpen);
+    }
+  };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
+
     const form = e.currentTarget;
+    const formData = new FormData(form);
+
+    const data = {
+      name: formData.get("name"),
+      email: formData.get("email"),
+      phone: formData.get("phone"),
+      service: formData.get("service"),
+      message: formData.get("message"),
+    };
 
     try {
-      const formData = new FormData(form);
-      const data = {
-        name: formData.get('name') as string,
-        email: formData.get('email') as string,
-        phone: formData.get('phone') as string,
-        service: formData.get('service') as string,
-        message: formData.get('message') as string || "Strategy Call Request",
-      };
-
-      const response = await fetch(contactEndpoint, {
+      const response = await fetch(bookCallEndpoint, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -54,51 +66,40 @@ export function BookCallDialog({ trigger }: BookCallDialogProps) {
         body: JSON.stringify(data),
       });
 
-      const rawResponse = await response.text();
-      const result = parseContactResponse(rawResponse);
-      const isSuccessful = isContactSubmissionSuccessful(response.ok, result);
-
-      if (!response.ok || !isSuccessful) {
-        throw new Error(result.message || `Request failed with ${response.status}`);
+      if (!response.ok) {
+        throw new Error("Failed to submit form");
       }
 
-      toast({
-        title: "Request submitted!",
-        description: "We'll contact you within 24 hours to schedule your call.",
-      });
-      setOpen(false);
+      alert("Form submitted successfully!");
       form.reset();
     } catch (error) {
-      console.error("Book call error:", error);
-      const message = error instanceof Error ? error.message : "Failed to submit request.";
-      toast({
-        title: "Error",
-        description: message,
-        variant: "destructive",
-      });
+      console.error("Submission error:", error);
+      alert("Something went wrong. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
   };
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
-        {trigger || (
-          <Button className="gap-2">
-            <CalendarCheck className="h-4 w-4" />
-            Book a Call
-          </Button>
-        )}
-      </DialogTrigger>
-      <DialogContent className="sm:max-w-md">
+    <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+      {trigger !== null && (
+        <DialogTrigger asChild>
+          {trigger || (
+            <Button className="gap-2">
+              <CalendarCheck className="h-4 w-4" />
+              Book a Call
+            </Button>
+          )}
+        </DialogTrigger>
+      )}
+      <DialogContent className="w-[calc(100vw-1.5rem)] max-w-md p-4 sm:p-6 max-h-[85vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="text-xl">Book a Strategy Call</DialogTitle>
           <DialogDescription>
             Fill in your details and we'll schedule a free consultation call.
           </DialogDescription>
         </DialogHeader>
-        <form onSubmit={handleSubmit} className="space-y-4 pt-4">
+        <form onSubmit={handleSubmit} className="space-y-4 pt-3 sm:pt-4 pb-1">
           <input
             name="name"
             placeholder="Full Name"

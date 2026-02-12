@@ -51,6 +51,7 @@ const Contact = () => {
 
     try {
       const serviceLabel = services.find(s => s.value === formData.service)?.label || formData.service;
+      const fullName = `${formData.firstName} ${formData.lastName}`.trim();
 
       const response = await fetch(contactEndpoint, {
         method: "POST",
@@ -58,12 +59,11 @@ const Contact = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          firstName: formData.firstName,
-          lastName: formData.lastName,
+          name: fullName,
           email: formData.email,
           phone: formData.phone,
-          service: serviceLabel,
           message: formData.message,
+          service: serviceLabel,
         }),
       });
 

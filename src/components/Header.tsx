@@ -18,6 +18,7 @@ const navLinks = [
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMobileBookOpen, setIsMobileBookOpen] = useState(false);
   const [isDark, setIsDark] = useState(false);
   const location = useLocation();
 
@@ -46,7 +47,7 @@ export function Header() {
           <img
             src={isDark ? logoDark : logo}
             alt="SpaceTech Consulting"
-            className="h-20 w-auto md:h-24 transition-transform hover:scale-105 duration-300"
+            className="h-20 w-auto md:h-24 transition-transform hover:scale-105 duration-300 dark:brightness-0 dark:invert"
           />
         </Link>
 
@@ -95,7 +96,7 @@ export function Header() {
               <img
                 src={isDark ? logoDark : logo}
                 alt="SpaceTech Consulting"
-                className="h-[72px] w-auto"
+                className="h-[72px] w-auto dark:brightness-0 dark:invert"
               />
             </div>
             {navLinks.map((link) => (
@@ -112,17 +113,25 @@ export function Header() {
               </Link>
             ))}
             <div className="pt-2">
-              <BookCallDialog
-                trigger={
-                  <Button className="w-full" onClick={() => setIsMenuOpen(false)}>
-                    Book a Call
-                  </Button>
-                }
-              />
+              <Button
+                className="w-full"
+                onClick={() => {
+                  setIsMenuOpen(false);
+                  setIsMobileBookOpen(true);
+                }}
+              >
+                Book a Call
+              </Button>
             </div>
           </nav>
         </div>
       )}
+
+      <BookCallDialog
+        trigger={null}
+        open={isMobileBookOpen}
+        onOpenChange={setIsMobileBookOpen}
+      />
     </header>
   );
 }
