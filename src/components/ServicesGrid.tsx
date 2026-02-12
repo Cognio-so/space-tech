@@ -21,7 +21,7 @@ const services = [
     title: "Custom Development",
     color: "bg-[#0d9488]",
     points: [
-      "Custom Reporting (YSR / Columnar / etc.)",
+      "Custom Reporting (YSR / Columnar)",
       "Custom Financials",
       "Custom Interfaces",
       "Workflow validations & automations",

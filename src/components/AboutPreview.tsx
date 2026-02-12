@@ -11,9 +11,7 @@ export function AboutPreview() {
             <span className="inline-block rounded-full bg-primary/10 px-4 py-2 text-sm font-medium text-primary">
               About SpaceTech
             </span>
-            <h2 className="section-heading">
-              Your Strategic Yardi & PropTech Partner
-            </h2>
+            <h2 className="section-heading">Your Strategic Yardi Partner</h2>
             <p className="text-lg text-muted-foreground">
               SpaceTech Consulting is a global consulting firm specializing in
               Yardi implementations, integrations, and property technology
