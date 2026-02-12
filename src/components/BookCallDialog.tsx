@@ -11,7 +11,6 @@ import {
 import { useToast } from "@/hooks/use-toast";
 import { CalendarCheck } from "lucide-react";
 import { bookCallEndpoint } from "@/lib/api";
-import { isContactSubmissionSuccessful, parseContactResponse } from "@/lib/contact-response";
 
 interface BookCallDialogProps {
   trigger?: ReactNode | null;
@@ -67,14 +66,28 @@ export function BookCallDialog({ trigger, open, onOpenChange }: BookCallDialogPr
       });
 
       if (!response.ok) {
-        throw new Error("Failed to submit form");
+        throw new Error(`Request failed with ${response.status}`);
       }
 
-      alert("Form submitted successfully!");
+      toast({
+        title: "Request submitted!",
+        description: "We'll contact you within 24 hours to schedule your call.",
+      });
       form.reset();
+      setDialogOpen(false);
     } catch (error) {
       console.error("Submission error:", error);
-      alert("Something went wrong. Please try again.");
+      const message =
+        error instanceof TypeError
+          ? "Backend not reachable. Start server with `npm run server`."
+          : error instanceof Error
+            ? error.message
+            : "Something went wrong. Please try again.";
+      toast({
+        title: "Error",
+        description: message,
+        variant: "destructive",
+      });
     } finally {
       setIsSubmitting(false);
     }
