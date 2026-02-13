@@ -65,13 +65,13 @@ export function Hero() {
 
         {/* Regions */}
         <div
-          className="mt-12 flex items-center gap-6 text-sm text-muted-foreground animate-fade-up"
+          className="mt-12 flex flex-wrap items-center justify-center gap-x-3 gap-y-2 text-sm text-muted-foreground animate-fade-up"
           style={{ animationDelay: "0.4s" }}
         >
           <span className="font-medium">Global Presence:</span>
           {["Australia", "India", "USA"].map((region, index) => (
-            <span key={region} className="flex items-center gap-2">
-              {index > 0 && <span className="h-1 w-1 rounded-full bg-muted-foreground" />}
+            <span key={region} className="inline-flex items-center">
+              {index > 0 && <span className="mx-3">•</span>}
               {region}
             </span>
           ))}

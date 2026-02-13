@@ -50,9 +50,9 @@ export function WhoWeServePreview() {
           <span className="mb-4 inline-block rounded-full bg-primary/10 px-4 py-2 text-sm font-medium text-primary">
             Who We Serve
           </span>
-          <h2 className="section-heading mb-4">Built for Real Estate</h2>
+          <h2 className="section-heading mb-4">Deep Expertise Across Real Estate Verticals</h2>
           <p className="section-subheading mx-auto">
-            We understand the unique challenges and opportunities across each real estate sector that we have served so far.
+            We’ve configured and optimized Yardi for organizations across every major property type, bringing sector-specific knowledge to every engagement.
           </p>
         </div>
 
