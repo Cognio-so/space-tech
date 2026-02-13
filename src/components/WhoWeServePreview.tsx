@@ -7,37 +7,37 @@ const industries = [
   {
     icon: Building2,
     title: "Commercial",
-    description: "Comprehensive solutions for commercial real estate management and operations.",
+    description: "We run Voyager Commercial for large portfolios. Lease management, CAM recoveries, tenant billing, Deal Manager configuration, and construction job tracking.",
     link: "/contact",
   },
   {
     icon: Home,
     title: "Residential (Multifamily)",
-    description: "Optimize tenant management and financial reporting for multifamily properties.",
+    description: "Voyager Residential and RentCafe, set up end to end. Lead-to-lease workflows, resident portals, maintenance dispatch, budgeting, and revenue tracking.",
     link: "/contact",
   },
   {
     icon: Landmark,
     title: "Affordable Housing",
-    description: "Specialized compliance and management solutions for affordable housing portfolios.",
+    description: "LIHTC, HUD, state programs. We configure Voyager Affordable Housing for certifications, recerts, waiting lists, and audit-ready compliance reporting.",
     link: "/contact",
   },
   {
     icon: TrendingUp,
     title: "Military Housing",
-    description: "Tailored property management solutions for military housing communities.",
+    description: "Privatized military housing runs on different rules. We configure Yardi for BAH tracking, occupancy reporting, work order management, and government compliance.",
     link: "/contact",
   },
   {
     icon: Cpu,
     title: "Single-Family Rental",
-    description: "Scalable solutions for single-family rental property portfolios.",
+    description: "SFR at scale needs a different Yardi setup. We build it for leasing automation, maintenance dispatch, owner distributions, property-level P&Ls, and investor reporting.",
     link: "/contact",
   },
   {
     icon: Building2,
     title: "Mixed-Use Properties",
-    description: "Integrated solutions for mixed-use developments combining residential and retail operations.",
+    description: "Residential and commercial under one roof means one Yardi environment. We get the modules working together with shared GL structures and consolidated reporting across asset types.",
     link: "/contact",
   },
 ];
@@ -50,9 +50,9 @@ export function WhoWeServePreview() {
           <span className="mb-4 inline-block rounded-full bg-primary/10 px-4 py-2 text-sm font-medium text-primary">
             Who We Serve
           </span>
-          <h2 className="section-heading mb-4">Deep Expertise Across Real Estate Verticals</h2>
+          <h2 className="section-heading mb-4">Yardi Expertise Across Property Types</h2>
           <p className="section-subheading mx-auto">
-            We’ve configured and optimized Yardi for organizations across every major property type, bringing sector-specific knowledge to every engagement.
+            Every property type runs Yardi differently. We've operated inside these environments at enterprise scale, and we bring that hands-on knowledge to every engagement.
           </p>
         </div>
 
@@ -90,3 +90,4 @@ export function WhoWeServePreview() {
     </section>
   );
 }
+

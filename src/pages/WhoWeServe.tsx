@@ -47,37 +47,37 @@ const industries = [
   {
     icon: Building2,
     title: "Commercial",
-    description: "Comprehensive solutions for commercial real estate management, from office buildings to retail spaces.",
+    description: "We run Voyager Commercial for large portfolios. Lease management, CAM recoveries, tenant billing, Deal Manager configuration, and construction job tracking.",
     features: ["Lease administration", "CAM reconciliation", "Tenant management", "Financial reporting"],
   },
   {
     icon: Home,
     title: "Residential (Multifamily)",
-    description: "Optimize tenant management and financial reporting for multifamily residential properties at scale.",
+    description: "Voyager Residential and RentCafe, set up end to end. Lead-to-lease workflows, resident portals, maintenance dispatch, budgeting, and revenue tracking.",
     features: ["Tenant communications", "Work order automation", "Rent management", "Occupancy tracking"],
   },
   {
     icon: Landmark,
     title: "Affordable Housing",
-    description: "Specialized compliance and management solutions for affordable housing portfolios.",
+    description: "LIHTC, HUD, state programs. We configure Voyager Affordable Housing for certifications, recerts, waiting lists, and audit-ready compliance reporting.",
     features: ["Compliance tracking", "Subsidy management", "Reporting automation", "Regulatory adherence"],
   },
   {
     icon: Shield,
     title: "Military Housing",
-    description: "Tailored property management solutions for military housing communities.",
+    description: "Privatized military housing runs on different rules. We configure Yardi for BAH tracking, occupancy reporting, work order management, and government compliance.",
     features: ["BAH management", "Move-in/out tracking", "Maintenance coordination", "Compliance reporting"],
   },
   {
     icon: Users,
     title: "Single-Family Rental",
-    description: "Scalable solutions for single-family rental property portfolios.",
+    description: "SFR at scale needs a different Yardi setup. We build it for leasing automation, maintenance dispatch, owner distributions, property-level P&Ls, and investor reporting.",
     features: ["Portfolio management", "Vendor coordination", "Financial consolidation", "Growth scaling"],
   },
   {
     icon: Building2,
     title: "Mixed-Use Properties",
-    description: "Integrated property management solutions for mixed-use developments combining residential, commercial, and retail operations under one platform.",
+    description: "Residential and commercial under one roof means one Yardi environment. We get the modules working together with shared GL structures and consolidated reporting across asset types.",
     features: [
       "Cross-portfolio financial reporting",
       "Residential & commercial lease management",
@@ -197,3 +197,4 @@ const WhoWeServe = () => {
 };
 
 export default WhoWeServe;
+
