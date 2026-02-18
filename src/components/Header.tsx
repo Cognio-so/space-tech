@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { BookCallDialog } from "@/components/BookCallDialog";
-import logo from "@/assets/logo.png";
+import logoLight from "@/assets/logo-light.png";
 import logoDark from "@/assets/logo-dark.png";
 
 const navLinks = [
@@ -45,7 +45,7 @@ export function Header() {
         {/* Logo Link */}
         <Link to="/" className="flex items-center gap-2">
           <img
-            src={isDark ? logoDark : logo}
+            src={isDark ? logoDark : logoLight}
             alt="SpaceTech Consulting"
             className="h-20 w-auto md:h-24 transition-transform hover:scale-105 duration-300"
           />
@@ -94,7 +94,7 @@ export function Header() {
           <nav className="container flex flex-col gap-4 py-6">
             <div className="flex items-center justify-between mb-4">
               <img
-                src={isDark ? logoDark : logo}
+                src={isDark ? logoDark : logoLight}
                 alt="SpaceTech Consulting"
                 className="h-[72px] w-auto"
               />

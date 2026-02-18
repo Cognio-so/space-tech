@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Mail, Phone } from "lucide-react";
 import { useState, useEffect } from "react";
-import logo from "@/assets/logo.png";
+import logoLight from "@/assets/logo-light.png";
 import logoDark from "@/assets/logo-dark.png";
 import {
   CONTACT_EMAIL,
@@ -49,7 +49,7 @@ export function Footer() {
           <div className="space-y-4">
             <Link to="/" className="flex items-center gap-2">
               <img
-                src={isDark ? logoDark : logo}
+                src={isDark ? logoDark : logoLight}
                 alt="SpaceTech Consulting"
                 className="h-20 w-auto transition-transform hover:scale-105 duration-300"
               />
