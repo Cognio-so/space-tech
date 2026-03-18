@@ -13,9 +13,6 @@ import {
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
@@ -166,13 +163,7 @@ export function BookCallDialog({ trigger, open, onOpenChange }: BookCallDialogPr
         </DialogTrigger>
       )}
       <DialogContent className="w-[calc(100vw-1.5rem)] max-w-2xl p-4 sm:p-6 max-h-[85vh] overflow-y-auto">
-        <DialogHeader>
-          <DialogTitle className="text-xl">Book a Strategy Call</DialogTitle>
-          <DialogDescription>
-            Fill in your details and we'll schedule a free consultation call.
-          </DialogDescription>
-        </DialogHeader>
-        <form onSubmit={handleSubmit} className="space-y-6 pt-3 sm:pt-4 pb-1">
+        <form onSubmit={handleSubmit} className="space-y-6 pt-2 pb-1">
           <div className="grid gap-6 sm:grid-cols-2">
             <div className="space-y-2">
               <Label htmlFor="book-first-name">First Name</Label>
