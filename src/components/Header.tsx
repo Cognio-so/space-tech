@@ -77,7 +77,13 @@ export function Header() {
         {/* Desktop Actions */}
         <div className="hidden items-center gap-3 lg:flex">
           <ThemeToggle />
-          <BookCallDialog />
+          <BookCallDialog
+            trigger={
+              <Button className="px-6">
+                Book a Call
+              </Button>
+            }
+          />
         </div>
 
         {/* Mobile Menu Button */}
