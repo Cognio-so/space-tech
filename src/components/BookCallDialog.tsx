@@ -91,7 +91,7 @@ export function BookCallDialog({ trigger, open, onOpenChange }: BookCallDialogPr
 
       toast({
         title: "Request submitted!",
-        description: "We'll contact you within 24 hours to schedule your call.",
+        description: "We'll contact you within 48 hours to schedule your call.",
       });
       form.reset();
       setDialogOpen(false);
