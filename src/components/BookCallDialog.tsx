@@ -13,12 +13,18 @@ import {
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
+  DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
 import { CalendarCheck, Send } from "lucide-react";
 import { bookCallEndpoint, contactEndpoint } from "@/lib/api";
-import { isContactSubmissionSuccessful, parseContactResponse } from "@/lib/contact-response";
+import {
+  getContactErrorMessage,
+  isContactSubmissionSuccessful,
+  parseContactResponse,
+} from "@/lib/contact-response";
 
 interface BookCallDialogProps {
   trigger?: ReactNode | null;
@@ -115,7 +121,9 @@ export function BookCallDialog({ trigger, open, onOpenChange }: BookCallDialogPr
       const isSuccessful = isContactSubmissionSuccessful(response.ok, result);
 
       if (!response.ok || !isSuccessful) {
-        throw new Error(result.message || `Request failed with ${response.status}`);
+        throw new Error(
+          getContactErrorMessage(result, `Request failed with ${response.status}`)
+        );
       }
 
       toast({
@@ -161,6 +169,10 @@ export function BookCallDialog({ trigger, open, onOpenChange }: BookCallDialogPr
         </DialogTrigger>
       )}
       <DialogContent className="w-[calc(100vw-1.5rem)] max-w-xl p-4 sm:p-5 max-h-[85vh] overflow-y-auto">
+        <DialogTitle className="sr-only">Book a Call</DialogTitle>
+        <DialogDescription className="sr-only">
+          Fill in your details to request a callback from SpaceTech Consulting.
+        </DialogDescription>
         <form onSubmit={handleSubmit} className="space-y-4 pt-2 pb-1">
           <div className="space-y-2">
             <Label htmlFor="book-first-name">Name</Label>
