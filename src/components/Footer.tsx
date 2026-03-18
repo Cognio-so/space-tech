@@ -48,11 +48,21 @@ export function Footer() {
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           <div className="space-y-4">
             <Link to="/" className="flex items-center gap-2">
-              <img
-                src={isDark ? logoDark : logoLight}
-                alt="SpaceTech Consulting"
-                className="h-20 w-auto transition-transform hover:scale-105 duration-300"
-              />
+              <div
+                className={`overflow-hidden transition-transform duration-300 hover:scale-105 ${
+                  isDark ? "h-12 w-[110px]" : "h-20"
+                }`}
+              >
+                <img
+                  src={isDark ? logoDark : logoLight}
+                  alt="SpaceTech Consulting"
+                  className={`h-full w-full ${
+                    isDark
+                      ? "scale-[1.2] object-cover object-center"
+                      : "w-auto object-contain"
+                  }`}
+                />
+              </div>
             </Link>
             <p className="text-sm text-muted-foreground">
               Enterprise Yardi Consulting Partner. Bringing out the best in Yardi.

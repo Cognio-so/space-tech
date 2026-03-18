@@ -44,11 +44,23 @@ export function Header() {
       <div className="container flex h-16 items-center justify-between md:h-20">
         {/* Logo Link */}
         <Link to="/" className="flex items-center gap-2">
-          <img
-            src={isDark ? logoDark : logoLight}
-            alt="SpaceTech Consulting"
-            className="h-20 w-auto md:h-24 transition-transform hover:scale-105 duration-300"
-          />
+          <div
+            className={`overflow-hidden transition-transform duration-300 hover:scale-105 ${
+              isDark
+                ? "h-11 w-[96px] md:h-12 md:w-[108px]"
+                : "h-20 md:h-24"
+            }`}
+          >
+            <img
+              src={isDark ? logoDark : logoLight}
+              alt="SpaceTech Consulting"
+              className={`h-full w-full ${
+                isDark
+                  ? "scale-[1.18] object-cover object-center"
+                  : "w-auto object-contain"
+              }`}
+            />
+          </div>
         </Link>
 
         {/* Desktop Navigation - Centered and balanced */}
@@ -93,11 +105,21 @@ export function Header() {
         <div className="border-t border-border bg-background lg:hidden text-foreground">
           <nav className="container flex flex-col gap-4 py-6">
             <div className="flex items-center justify-between mb-4">
-              <img
-                src={isDark ? logoDark : logoLight}
-                alt="SpaceTech Consulting"
-                className="h-[72px] w-auto"
-              />
+              <div
+                className={`overflow-hidden ${
+                  isDark ? "h-11 w-[96px]" : "h-[72px]"
+                }`}
+              >
+                <img
+                  src={isDark ? logoDark : logoLight}
+                  alt="SpaceTech Consulting"
+                  className={`h-full w-full ${
+                    isDark
+                      ? "scale-[1.18] object-cover object-center"
+                      : "w-auto object-contain"
+                  }`}
+                />
+              </div>
             </div>
             {navLinks.map((link) => (
               <Link
