@@ -8,12 +8,18 @@ export default defineConfig(({ mode }) => ({
   server: {
     host: "::",
     port: 8080,
+    strictPort: true,
     hmr: {
       overlay: false,
     },
     proxy: {
       "/api": "https://space-tech-backend.vercel.app",
     },
+  },
+  preview: {
+    host: "::",
+    port: 8080,
+    strictPort: true,
   },
   plugins: [react(), mode === "development" && componentTagger()].filter(Boolean),
   resolve: {

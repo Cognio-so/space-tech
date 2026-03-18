@@ -11,6 +11,7 @@ import {
 import { useToast } from "@/hooks/use-toast";
 import { CalendarCheck } from "lucide-react";
 import { bookCallEndpoint, contactEndpoint } from "@/lib/api";
+import { isContactSubmissionSuccessful, parseContactResponse } from "@/lib/contact-response";
 
 interface BookCallDialogProps {
   trigger?: ReactNode | null;
@@ -65,8 +66,9 @@ export function BookCallDialog({ trigger, open, onOpenChange }: BookCallDialogPr
         body: JSON.stringify(data),
       });
 
-      // Some deployments may not expose /api/book-call yet; fallback to /api/contact.
-      if (response.status === 404 && bookCallEndpoint !== contactEndpoint) {
+      // Some deployments may not expose /api/book-call, or that handler may be
+      // misconfigured while /api/contact still works. Retry through contact.
+      if (!response.ok && bookCallEndpoint !== contactEndpoint) {
         response = await fetch(contactEndpoint, {
           method: "POST",
           headers: {
@@ -79,8 +81,12 @@ export function BookCallDialog({ trigger, open, onOpenChange }: BookCallDialogPr
         });
       }
 
-      if (!response.ok) {
-        throw new Error(`Request failed with ${response.status}`);
+      const rawResponse = await response.text();
+      const result = parseContactResponse(rawResponse);
+      const isSuccessful = isContactSubmissionSuccessful(response.ok, result);
+
+      if (!response.ok || !isSuccessful) {
+        throw new Error(result.message || `Request failed with ${response.status}`);
       }
 
       toast({

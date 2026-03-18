@@ -1,29 +1,4 @@
-import nodemailer from "nodemailer";
-
-const json = (res, statusCode, payload) => {
-  res.status(statusCode).json(payload);
-};
-
-const setCorsHeaders = (req, res) => {
-  // Public form endpoint: allow cross-origin requests from frontend domains.
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Vary", "Origin");
-  res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-};
-
-const getBody = (req) => req.body || {};
-
-const getTransporter = () => {
-  const user = process.env.GMAIL_USER;
-  const pass = process.env.GMAIL_APP_PASSWORD;
-  if (!user || !pass) return null;
-
-  return nodemailer.createTransport({
-    service: "gmail",
-    auth: { user, pass },
-  });
-};
+import { getBody, getMailConfig, json, setCorsHeaders } from "./_mail.js";
 
 export default async function handler(req, res) {
   setCorsHeaders(req, res);
@@ -48,16 +23,15 @@ export default async function handler(req, res) {
       return json(res, 400, { success: false, message: "Please fill all required fields." });
     }
 
-    const transporter = getTransporter();
-    if (!transporter) {
+    const mailConfig = getMailConfig();
+    if (!mailConfig) {
       return json(res, 500, {
         success: false,
         message: "Mail service is not configured.",
       });
     }
 
-    const fromEmail = process.env.GMAIL_USER;
-    const toEmail = process.env.CONTACT_TO_EMAIL || fromEmail;
+    const { fromEmail, toEmail, transporter } = mailConfig;
 
     await transporter.sendMail({
       from: fromEmail,
