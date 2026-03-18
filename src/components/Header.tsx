@@ -45,18 +45,14 @@ export function Header() {
         {/* Logo Link */}
         <Link to="/" className="flex items-center gap-2">
           <div
-            className={`overflow-hidden transition-transform duration-300 hover:scale-105 ${
-              isDark
-                ? "h-11 w-[96px] md:h-12 md:w-[108px]"
-                : "h-20 md:h-24"
-            }`}
+            className="overflow-hidden h-20 transition-transform duration-300 hover:scale-105 md:h-24"
           >
             <img
               src={isDark ? logoDark : logoLight}
               alt="SpaceTech Consulting"
               className={`h-full w-full ${
                 isDark
-                  ? "scale-[1.18] object-cover object-center"
+                  ? "object-contain object-center"
                   : "w-auto object-contain"
               }`}
             />
@@ -105,17 +101,13 @@ export function Header() {
         <div className="border-t border-border bg-background lg:hidden text-foreground">
           <nav className="container flex flex-col gap-4 py-6">
             <div className="flex items-center justify-between mb-4">
-              <div
-                className={`overflow-hidden ${
-                  isDark ? "h-11 w-[96px]" : "h-[72px]"
-                }`}
-              >
+              <div className="overflow-hidden h-[72px]">
                 <img
                   src={isDark ? logoDark : logoLight}
                   alt="SpaceTech Consulting"
                   className={`h-full w-full ${
                     isDark
-                      ? "scale-[1.18] object-cover object-center"
+                      ? "object-contain object-center"
                       : "w-auto object-contain"
                   }`}
                 />
