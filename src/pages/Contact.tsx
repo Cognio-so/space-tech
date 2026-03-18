@@ -22,7 +22,11 @@ import {
   CONTACT_PHONE_US_DISPLAY,
   CONTACT_PHONE_US_URL,
 } from "@/lib/contact";
-import { isContactSubmissionSuccessful, parseContactResponse } from "@/lib/contact-response";
+import {
+  getContactErrorMessage,
+  isContactSubmissionSuccessful,
+  parseContactResponse,
+} from "@/lib/contact-response";
 
 const services = [
   { value: "consulting", label: "Yardi Consulting" },
@@ -99,7 +103,9 @@ const Contact = () => {
       const isSuccessful = isContactSubmissionSuccessful(response.ok, result);
 
       if (!response.ok || !isSuccessful) {
-        throw new Error(result.message || `Request failed with ${response.status}`);
+        throw new Error(
+          getContactErrorMessage(result, `Request failed with ${response.status}`)
+        );
       }
 
       toast({

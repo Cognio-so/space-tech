@@ -21,6 +21,25 @@ export const parseContactResponse = (rawResponse: string): ContactApiResponse =>
   }
 };
 
+export const getContactErrorMessage = (result: ContactApiResponse, fallback: string) => {
+  const message = (result.message || "").trim();
+
+  if (!message) return fallback;
+
+  if (
+    message.includes("FUNCTION_INVOCATION_FAILED") ||
+    message.includes("A server error has occurred")
+  ) {
+    return "Our contact service is temporarily unavailable. Please try again later.";
+  }
+
+  if (message === "Failed to send email.") {
+    return "Our contact service is temporarily unavailable. Please try again later.";
+  }
+
+  return message;
+};
+
 export const isContactSubmissionSuccessful = (
   responseOk: boolean,
   result: ContactApiResponse
