@@ -41,7 +41,6 @@ export function BookCallDialog({ trigger, open, onOpenChange }: BookCallDialogPr
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     firstName: "",
-    lastName: "",
     email: "",
     phone: "",
     service: "",
@@ -59,10 +58,10 @@ export function BookCallDialog({ trigger, open, onOpenChange }: BookCallDialogPr
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!formData.firstName.trim() || !formData.lastName.trim() || !formData.email.trim()) {
+    if (!formData.firstName.trim() || !formData.email.trim()) {
       toast({
         title: "Missing details",
-        description: "Please fill your first name, last name, and email.",
+        description: "Please fill your name and email.",
         variant: "destructive",
       });
       return;
@@ -80,7 +79,7 @@ export function BookCallDialog({ trigger, open, onOpenChange }: BookCallDialogPr
     setIsSubmitting(true);
 
     const data = {
-      name: `${formData.firstName} ${formData.lastName}`.trim(),
+      name: formData.firstName.trim(),
       email: formData.email.trim(),
       phone: formData.phone.trim(),
       service: services.find((item) => item.value === formData.service)?.label || formData.service,
@@ -125,7 +124,6 @@ export function BookCallDialog({ trigger, open, onOpenChange }: BookCallDialogPr
       });
       setFormData({
         firstName: "",
-        lastName: "",
         email: "",
         phone: "",
         service: "",
@@ -162,31 +160,18 @@ export function BookCallDialog({ trigger, open, onOpenChange }: BookCallDialogPr
           )}
         </DialogTrigger>
       )}
-      <DialogContent className="w-[calc(100vw-1.5rem)] max-w-2xl p-4 sm:p-6 max-h-[85vh] overflow-y-auto">
-        <form onSubmit={handleSubmit} className="space-y-6 pt-2 pb-1">
-          <div className="grid gap-6 sm:grid-cols-2">
-            <div className="space-y-2">
-              <Label htmlFor="book-first-name">First Name</Label>
-              <Input
-                id="book-first-name"
-                name="firstName"
-                placeholder="John"
-                value={formData.firstName}
-                onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
-                required
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="book-last-name">Last Name</Label>
-              <Input
-                id="book-last-name"
-                name="lastName"
-                placeholder="Doe"
-                value={formData.lastName}
-                onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
-                required
-              />
-            </div>
+      <DialogContent className="w-[calc(100vw-1.5rem)] max-w-xl p-4 sm:p-5 max-h-[85vh] overflow-y-auto">
+        <form onSubmit={handleSubmit} className="space-y-4 pt-2 pb-1">
+          <div className="space-y-2">
+            <Label htmlFor="book-first-name">Name</Label>
+            <Input
+              id="book-first-name"
+              name="firstName"
+              placeholder="John"
+              value={formData.firstName}
+              onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
+              required
+            />
           </div>
 
           <div className="space-y-2">
