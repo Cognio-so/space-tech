@@ -1,5 +1,4 @@
-import nodemailer from "nodemailer";
-
+const nodemailer = require("nodemailer");
 export const json = (res, statusCode, payload) => {
   res.status(statusCode).json(payload);
 };
