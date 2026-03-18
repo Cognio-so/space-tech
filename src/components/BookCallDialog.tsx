@@ -1,5 +1,15 @@
 import { useState, type FormEvent, type ReactNode } from "react";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import {
   Dialog,
   DialogContent,
@@ -9,7 +19,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
-import { CalendarCheck } from "lucide-react";
+import { CalendarCheck, Send } from "lucide-react";
 import { bookCallEndpoint, contactEndpoint } from "@/lib/api";
 import { isContactSubmissionSuccessful, parseContactResponse } from "@/lib/contact-response";
 
@@ -20,18 +30,26 @@ interface BookCallDialogProps {
 }
 
 const services = [
-  "Yardi Consulting",
-  "Reporting & Business Intelligence",
-  "System Integrations",
-  "Automation & Workflows",
-  "Managed BAU Support",
-  "Data Migration",
+  { value: "consulting", label: "Yardi Consulting" },
+  { value: "reporting", label: "Reporting & Business Intelligence" },
+  { value: "integrations", label: "System Integrations" },
+  { value: "automation", label: "Automation & Workflows" },
+  { value: "support", label: "Managed BAU Support" },
+  { value: "data", label: "Data Migration" },
 ];
 
 export function BookCallDialog({ trigger, open, onOpenChange }: BookCallDialogProps) {
   const { toast } = useToast();
   const [internalOpen, setInternalOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    service: "",
+    message: "",
+  });
   const isControlled = open !== undefined;
   const dialogOpen = isControlled ? open : internalOpen;
 
@@ -44,17 +62,32 @@ export function BookCallDialog({ trigger, open, onOpenChange }: BookCallDialogPr
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!formData.firstName.trim() || !formData.lastName.trim() || !formData.email.trim()) {
+      toast({
+        title: "Missing details",
+        description: "Please fill your first name, last name, and email.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    if (!formData.service) {
+      toast({
+        title: "Select a service",
+        description: "Please choose the service you are interested in.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     setIsSubmitting(true);
 
-    const form = e.currentTarget;
-    const formData = new FormData(form);
-
     const data = {
-      name: formData.get("name"),
-      email: formData.get("email"),
-      phone: formData.get("phone"),
-      service: formData.get("service"),
-      message: formData.get("message"),
+      name: `${formData.firstName} ${formData.lastName}`.trim(),
+      email: formData.email.trim(),
+      phone: formData.phone.trim(),
+      service: services.find((item) => item.value === formData.service)?.label || formData.service,
+      message: formData.message.trim(),
     };
 
     try {
@@ -93,7 +126,14 @@ export function BookCallDialog({ trigger, open, onOpenChange }: BookCallDialogPr
         title: "Request submitted!",
         description: "We'll contact you within 48 hours to schedule your call.",
       });
-      form.reset();
+      setFormData({
+        firstName: "",
+        lastName: "",
+        email: "",
+        phone: "",
+        service: "",
+        message: "",
+      });
       setDialogOpen(false);
     } catch (error) {
       console.error("Submission error:", error);
@@ -125,63 +165,107 @@ export function BookCallDialog({ trigger, open, onOpenChange }: BookCallDialogPr
           )}
         </DialogTrigger>
       )}
-      <DialogContent className="w-[calc(100vw-1.5rem)] max-w-md p-4 sm:p-6 max-h-[85vh] overflow-y-auto">
+      <DialogContent className="w-[calc(100vw-1.5rem)] max-w-2xl p-4 sm:p-6 max-h-[85vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="text-xl">Book a Strategy Call</DialogTitle>
           <DialogDescription>
             Fill in your details and we'll schedule a free consultation call.
           </DialogDescription>
         </DialogHeader>
-        <form onSubmit={handleSubmit} className="space-y-4 pt-3 sm:pt-4 pb-1">
-          <input
-            name="name"
-            placeholder="Full Name"
-            required
-            className="w-full p-3 border rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-primary"
-          />
+        <form onSubmit={handleSubmit} className="space-y-6 pt-3 sm:pt-4 pb-1">
+          <div className="grid gap-6 sm:grid-cols-2">
+            <div className="space-y-2">
+              <Label htmlFor="book-first-name">First Name</Label>
+              <Input
+                id="book-first-name"
+                name="firstName"
+                placeholder="John"
+                value={formData.firstName}
+                onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
+                required
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="book-last-name">Last Name</Label>
+              <Input
+                id="book-last-name"
+                name="lastName"
+                placeholder="Doe"
+                value={formData.lastName}
+                onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
+                required
+              />
+            </div>
+          </div>
 
-          <input
-            name="email"
-            type="email"
-            placeholder="Email Address"
-            required
-            className="w-full p-3 border rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-primary"
-          />
+          <div className="space-y-2">
+            <Label htmlFor="book-email">Email</Label>
+            <Input
+              id="book-email"
+              name="email"
+              type="email"
+              placeholder="john@company.com"
+              value={formData.email}
+              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+              required
+            />
+          </div>
 
-          <input
-            name="phone"
-            placeholder="Phone Number"
-            required
-            className="w-full p-3 border rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-primary"
-          />
+          <div className="space-y-2">
+            <Label htmlFor="book-phone">Phone Number</Label>
+            <Input
+              id="book-phone"
+              name="phone"
+              type="tel"
+              placeholder="+1 (555) 000-0000"
+              value={formData.phone}
+              onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+              required
+            />
+          </div>
 
-          <select
-            name="service"
-            required
-            className="w-full p-3 border rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-primary"
-          >
-            <option value="">Select Service</option>
-            {services.map((service) => (
-              <option key={service} value={service}>
-                {service}
-              </option>
-            ))}
-          </select>
+          <div className="space-y-2">
+            <Label htmlFor="book-service">Service Interested In</Label>
+            <Select
+              value={formData.service}
+              onValueChange={(value) => setFormData({ ...formData, service: value })}
+              required
+            >
+              <SelectTrigger id="book-service">
+                <SelectValue placeholder="Select a service" />
+              </SelectTrigger>
+              <SelectContent>
+                {services.map((service) => (
+                  <SelectItem key={service.value} value={service.value}>
+                    {service.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
 
-          <textarea
-            name="message"
-            placeholder="Tell us about your project"
-            rows={3}
-            className="w-full p-3 border rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-primary resize-none"
-          />
+          <div className="space-y-2">
+            <Label htmlFor="book-message">Message</Label>
+            <Textarea
+              id="book-message"
+              name="message"
+              placeholder="Tell us about your project and how we can help..."
+              value={formData.message}
+              onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+              rows={4}
+            />
+          </div>
 
-          <button
-            type="submit"
-            disabled={isSubmitting}
-            className="w-full bg-primary text-primary-foreground p-3 rounded-lg hover:bg-primary/90 transition disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            {isSubmitting ? "Submitting..." : "Request a Call"}
-          </button>
+          <Button type="submit" className="group w-full gap-2" disabled={isSubmitting}>
+            {isSubmitting ? (
+              "Submitting..."
+            ) : (
+              <>
+                Request a Call
+                <Send className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </>
+            )}
+          </Button>
         </form>
       </DialogContent>
     </Dialog>
