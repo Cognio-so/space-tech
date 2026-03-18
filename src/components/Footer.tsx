@@ -48,17 +48,13 @@ export function Footer() {
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           <div className="space-y-4">
             <Link to="/" className="flex items-center gap-2">
-              <div
-                className={`overflow-hidden transition-transform duration-300 hover:scale-105 ${
-                  isDark ? "h-12 w-[110px]" : "h-20"
-                }`}
-              >
+              <div className="overflow-hidden h-20 transition-transform duration-300 hover:scale-105">
                 <img
                   src={isDark ? logoDark : logoLight}
                   alt="SpaceTech Consulting"
                   className={`h-full w-full ${
                     isDark
-                      ? "scale-[1.2] object-cover object-center"
+                      ? "object-contain object-center"
                       : "w-auto object-contain"
                   }`}
                 />
