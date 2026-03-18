@@ -18,7 +18,7 @@ export function FloatingChat() {
       >
         {/* Book a Call */}
         <a
-          href="https://cal.com"
+          href="https://cal.com/spacetech/30min"
           target="_blank"
           rel="noopener noreferrer"
         >
