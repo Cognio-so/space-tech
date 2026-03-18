@@ -1,4 +1,4 @@
-import { getBody, getMailConfig, json, setCorsHeaders } from "./_mail.js";
+import { getBody, getMailConfig, getMailErrorMessage, json, setCorsHeaders } from "./_mail.js";
 
 export default async function handler(req, res) {
   setCorsHeaders(req, res);
@@ -62,6 +62,6 @@ export default async function handler(req, res) {
     return json(res, 200, { success: true });
   } catch (error) {
     console.error("Contact API error:", error);
-    return json(res, 500, { success: false, message: "Failed to send email." });
+    return json(res, 500, { success: false, message: getMailErrorMessage(error) });
   }
 }
