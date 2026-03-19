@@ -47,16 +47,12 @@ export function Footer() {
       <div className="container py-12 md:py-16">
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           <div className="space-y-4">
-            <Link to="/" className="flex items-center gap-2">
-              <div className="overflow-hidden h-20 transition-transform duration-300 hover:scale-105">
+            <Link to="/" className="flex shrink-0 items-center gap-2">
+              <div className="flex h-[72px] max-w-[170px] items-center overflow-hidden transition-transform duration-300 hover:scale-105 sm:h-[80px] sm:max-w-[190px]">
                 <img
                   src={isDark ? logoDark : logoLight}
                   alt="SpaceTech Consulting"
-                  className={`h-full w-full ${
-                    isDark
-                      ? "object-contain object-center"
-                      : "w-auto object-contain"
-                  }`}
+                  className="h-full w-auto max-w-full object-contain object-left"
                 />
               </div>
             </Link>

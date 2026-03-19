@@ -42,18 +42,14 @@ export function Header() {
     <header className="sticky top-0 z-50 w-full border-b border-border bg-background/80 backdrop-blur-lg text-foreground transition-colors duration-300">
       <div className="container flex h-16 items-center justify-between md:h-20">
         {/* Logo Link */}
-        <Link to="/" className="flex items-center gap-2">
+        <Link to="/" className="flex shrink-0 items-center gap-2">
           <div
-            className="overflow-hidden h-20 transition-transform duration-300 hover:scale-105 md:h-24"
+            className="flex h-[72px] max-w-[170px] items-center overflow-hidden transition-transform duration-300 hover:scale-105 sm:h-[80px] sm:max-w-[190px] md:h-[88px] md:max-w-[220px]"
           >
             <img
               src={isDark ? logoDark : logoLight}
               alt="SpaceTech Consulting"
-              className={`h-full w-full ${
-                isDark
-                  ? "object-contain object-center"
-                  : "w-auto object-contain"
-              }`}
+              className="h-full w-auto max-w-full object-contain object-left"
             />
           </div>
         </Link>
@@ -102,15 +98,11 @@ export function Header() {
         <div className="border-t border-border bg-background lg:hidden text-foreground">
           <nav className="container flex flex-col gap-4 py-6">
             <div className="flex items-center justify-between mb-4">
-              <div className="overflow-hidden h-[72px]">
+              <div className="flex h-[72px] max-w-[190px] items-center overflow-hidden sm:max-w-[210px]">
                 <img
                   src={isDark ? logoDark : logoLight}
                   alt="SpaceTech Consulting"
-                  className={`h-full w-full ${
-                    isDark
-                      ? "object-contain object-center"
-                      : "w-auto object-contain"
-                  }`}
+                  className="h-full w-auto max-w-full object-contain object-left"
                 />
               </div>
             </div>
