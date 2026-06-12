@@ -3,9 +3,9 @@ import { Menu, X } from "lucide-react";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/ThemeToggle";
-import { BookCallDialog } from "@/components/BookCallDialog";
 import logoLight from "@/assets/logo-light.png";
 import logoDark from "@/assets/logo-dark.png";
+import { BOOK_CALL_URL } from "@/lib/contact";
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -17,7 +17,6 @@ const navLinks = [
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isMobileBookOpen, setIsMobileBookOpen] = useState(false);
   const [isDark, setIsDark] = useState(false);
   const location = useLocation();
 
@@ -73,9 +72,11 @@ export function Header() {
         {/* Desktop Actions */}
         <div className="hidden items-center gap-3 lg:flex">
           <ThemeToggle />
-          <BookCallDialog
-            trigger={<Button className="px-6">Book a Call</Button>}
-          />
+          <Button asChild className="px-6">
+            <a href={BOOK_CALL_URL} target="_blank" rel="noreferrer">
+              Book a Call
+            </a>
+          </Button>
         </div>
 
         {/* Mobile Menu Button */}
@@ -120,25 +121,15 @@ export function Header() {
               </Link>
             ))}
             <div className="pt-2">
-              <Button
-                className="w-full"
-                onClick={() => {
-                  setIsMenuOpen(false);
-                  setIsMobileBookOpen(true);
-                }}
-              >
-                Book a Call
+              <Button asChild className="w-full" onClick={() => setIsMenuOpen(false)}>
+                <a href={BOOK_CALL_URL} target="_blank" rel="noreferrer">
+                  Book a Call
+                </a>
               </Button>
             </div>
           </nav>
         </div>
       )}
-
-      <BookCallDialog
-        trigger={null}
-        open={isMobileBookOpen}
-        onOpenChange={setIsMobileBookOpen}
-      />
     </header>
   );
 }

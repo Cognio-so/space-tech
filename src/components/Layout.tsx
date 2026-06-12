@@ -2,6 +2,7 @@ import { ReactNode } from "react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { FloatingChat } from "@/components/FloatingChat";
+import { PrivacyNotice } from "@/components/PrivacyNotice";
 
 interface LayoutProps {
   children: ReactNode;
@@ -14,6 +15,7 @@ export function Layout({ children }: LayoutProps) {
       <main className="flex-1">{children}</main>
       <Footer />
       <FloatingChat />
+      <PrivacyNotice />
     </div>
   );
 }

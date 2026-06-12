@@ -1,14 +1,17 @@
 import { Link } from "react-router-dom";
-import { Mail, Phone } from "lucide-react";
+import { CalendarCheck, Linkedin, Mail, MessageCircle, Phone } from "lucide-react";
 import { useState, useEffect } from "react";
 import logoLight from "@/assets/logo-light.png";
 import logoDark from "@/assets/logo-dark.png";
 import {
   CONTACT_EMAIL,
+  CONTACT_PHONE_IN_DISPLAY,
   CONTACT_PHONE_AU_DISPLAY,
   CONTACT_PHONE_AU_URL,
   CONTACT_PHONE_US_DISPLAY,
   CONTACT_PHONE_US_URL,
+  CONTACT_WHATSAPP_URL,
+  BOOK_CALL_URL,
 } from "@/lib/contact";
 
 const footerLinks = {
@@ -23,6 +26,8 @@ const footerLinks = {
   company: [
     { href: "/about", label: "About Us" },
     { href: "/who-we-serve", label: "Who We Serve" },
+    { href: "/#faqs", label: "FAQs" },
+    { href: "/#policies", label: "Privacy & Policies" },
     { href: "/contact", label: "Contact" },
   ],
 };
@@ -124,6 +129,10 @@ export function Footer() {
                   <span>{CONTACT_PHONE_AU_DISPLAY}</span>
                 </a>
               </li>
+              <li className="flex items-center gap-2 text-sm text-muted-foreground">
+                <Phone className="h-5 w-5" />
+                <span>{CONTACT_PHONE_IN_DISPLAY}</span>
+              </li>
               <li>
                 <a
                   href={`mailto:${CONTACT_EMAIL}`}
@@ -134,6 +143,35 @@ export function Footer() {
                 </a>
               </li>
             </ul>
+            <div className="mt-5 flex flex-wrap gap-2">
+              <a
+                href="https://www.linkedin.com/search/results/companies/?keywords=SpaceTech%20Consulting"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Find SpaceTech Consulting on LinkedIn"
+                className="inline-flex h-9 w-9 items-center justify-center rounded-md border text-muted-foreground transition-colors hover:text-primary"
+              >
+                <Linkedin className="h-4 w-4" />
+              </a>
+              <a
+                href={CONTACT_WHATSAPP_URL}
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Message SpaceTech Consulting on WhatsApp"
+                className="inline-flex h-9 w-9 items-center justify-center rounded-md border text-muted-foreground transition-colors hover:text-primary"
+              >
+                <MessageCircle className="h-4 w-4" />
+              </a>
+              <a
+                href={BOOK_CALL_URL}
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Book a call with SpaceTech Consulting"
+                className="inline-flex h-9 w-9 items-center justify-center rounded-md border text-muted-foreground transition-colors hover:text-primary"
+              >
+                <CalendarCheck className="h-4 w-4" />
+              </a>
+            </div>
           </div>
         </div>
 

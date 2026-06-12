@@ -1,5 +1,5 @@
 import { Layout } from "@/components/Layout";
-import { Mail, Phone, Send } from "lucide-react";
+import { CalendarCheck, Mail, Phone, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -17,10 +17,12 @@ import { useToast } from "@/hooks/use-toast";
 import { contactEndpoint } from "@/lib/api";
 import {
   CONTACT_EMAIL,
+  CONTACT_PHONE_IN_DISPLAY,
   CONTACT_PHONE_AU_DISPLAY,
   CONTACT_PHONE_AU_URL,
   CONTACT_PHONE_US_DISPLAY,
   CONTACT_PHONE_US_URL,
+  BOOK_CALL_URL,
 } from "@/lib/contact";
 import {
   getContactErrorMessage,
@@ -194,6 +196,34 @@ const Contact = () => {
                       className="text-muted-foreground transition-colors hover:text-primary"
                     >
                       {CONTACT_PHONE_AU_DISPLAY}
+                    </a>
+                  </CardContent>
+                </Card>
+
+                <Card className="glass-card border-0">
+                  <CardHeader className="pb-2">
+                    <CardTitle className="text-base">Phone (India)</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <span className="text-muted-foreground">
+                      {CONTACT_PHONE_IN_DISPLAY}
+                    </span>
+                  </CardContent>
+                </Card>
+
+                <Card className="glass-card border-0">
+                  <CardHeader className="pb-2">
+                    <CardTitle className="text-base">Book a Call</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <a
+                      href={BOOK_CALL_URL}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center gap-2 text-muted-foreground transition-colors hover:text-primary"
+                    >
+                      <CalendarCheck className="h-4 w-4" />
+                      30-minute discovery call
                     </a>
                   </CardContent>
                 </Card>

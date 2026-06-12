@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import heroBg from "@/assets/hero-bg.jpg";
+import logoLight from "@/assets/logo-light.png";
+import { BOOK_CALL_URL } from "@/lib/contact";
 
 export function Hero() {
   return (
@@ -31,12 +33,22 @@ export function Hero() {
         </div>
 
         {/* Headline */}
-        <h1
-          className="mb-6 max-w-4xl font-display text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl animate-fade-up"
+        <div
+          className="mb-6 flex justify-center animate-fade-up"
           style={{ animationDelay: "0.1s" }}
         >
-          Enterprise Yardi Platform Ownership,{" "}
-          <span className="text-primary">Proven at Scale in ANZ</span>
+          <img
+            src={logoLight}
+            alt="SpaceTech Consulting"
+            className="h-auto w-full max-w-[360px] object-contain md:max-w-[440px]"
+          />
+        </div>
+
+        <h1
+          className="mb-6 max-w-4xl font-display text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl animate-fade-up"
+          style={{ animationDelay: "0.15s" }}
+        >
+          SpaceTech Consulting
         </h1>
 
         {/* Tagline */}
@@ -44,7 +56,9 @@ export function Hero() {
           className="mb-10 max-w-2xl text-lg text-muted-foreground md:text-xl animate-fade-up"
           style={{ animationDelay: "0.2s" }}
         >
-          We own your Yardi platform's success through proactive management, deep consulting expertise, and continuous improvement—not just reactive support.
+          Enterprise Yardi platform ownership, proactive support, implementation,
+          integrations, automation, and data intelligence for real estate teams across
+          Australia, India, and the USA.
         </p>
 
         {/* CTAs */}
@@ -53,10 +67,10 @@ export function Hero() {
           style={{ animationDelay: "0.3s" }}
         >
           <Button asChild size="lg" className="group gap-2 px-8">
-            <Link to="/contact">
+            <a href={BOOK_CALL_URL} target="_blank" rel="noreferrer">
               Book a Strategy Call
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-            </Link>
+            </a>
           </Button>
           <Button asChild variant="outline" size="lg" className="px-8 border-primary/20 hover:bg-primary/10 hover:text-primary transition-all duration-300">
             <Link to="/services">View Capabilities</Link>

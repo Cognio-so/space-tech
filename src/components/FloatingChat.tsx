@@ -2,7 +2,12 @@ import { useState } from "react";
 import { MessageCircle, X, CalendarCheck, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { CONTACT_PHONE_US_DISPLAY, CONTACT_PHONE_US_URL, CONTACT_WHATSAPP_URL } from "@/lib/contact";
+import {
+  BOOK_CALL_URL,
+  CONTACT_PHONE_US_DISPLAY,
+  CONTACT_PHONE_US_URL,
+  CONTACT_WHATSAPP_URL,
+} from "@/lib/contact";
 
 export function FloatingChat() {
   const [isOpen, setIsOpen] = useState(false);
@@ -19,7 +24,7 @@ export function FloatingChat() {
       >
         {/* Book a Call */}
         <a
-          href="https://cal.com/spacetech/30min"
+          href={BOOK_CALL_URL}
           target="_blank"
           rel="noopener noreferrer"
         >

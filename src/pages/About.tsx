@@ -28,6 +28,13 @@ const values = [
   },
 ];
 
+const approach = [
+  "Assess the current Yardi setup, integrations, reports, security, and operational pain points.",
+  "Prioritize fixes and enhancements by business value, risk, dependency, and delivery effort.",
+  "Deliver through documented releases, testing cycles, stakeholder demos, and handover notes.",
+  "Operate with ongoing health checks, SLA visibility, governance cadence, and continuous improvement.",
+];
+
 const About = () => {
   return (
     <Layout>
@@ -66,6 +73,36 @@ const About = () => {
             <p className="text-2xl font-semibold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent italic">
               "Bringing out the best in Yardi"
             </p>
+          </div>
+        </div>
+      </section>
+
+      {/* How We Work */}
+      <section className="border-t bg-muted/30 py-20 md:py-28">
+        <div className="container">
+          <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
+            <div>
+              <span className="mb-4 inline-block rounded-full bg-primary/10 px-4 py-2 text-sm font-medium text-primary">
+                Delivery Approach
+              </span>
+              <h2 className="section-heading mb-4">Practical Consulting, Clear Ownership</h2>
+              <p className="text-lg leading-8 text-muted-foreground">
+                We work as a long-term Yardi partner for property teams that need reliable
+                execution, stronger reporting, cleaner data, and less dependency on reactive
+                support. Every engagement is shaped around business outcomes, operating
+                controls, and measurable platform improvements.
+              </p>
+            </div>
+            <div className="grid gap-4">
+              {approach.map((step, index) => (
+                <div key={step} className="rounded-lg border bg-card p-5">
+                  <p className="mb-2 text-sm font-semibold text-primary">
+                    Step {index + 1}
+                  </p>
+                  <p className="text-muted-foreground">{step}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>

@@ -20,6 +20,7 @@ const services = [
     image: serviceConsulting,
     icon: Settings,
     description: "End-to-end Yardi implementation, configuration, and optimization services.",
+    details: ["Module setup", "Security roles", "Process alignment"],
     link: "/services/consulting",
   },
   {
@@ -28,6 +29,7 @@ const services = [
     image: serviceReporting,
     icon: BarChart3,
     description: "Transform your property data into actionable insights with custom reporting.",
+    details: ["YSR and columnar reports", "Dashboards", "KPI packs"],
     link: "/services/reporting",
   },
   {
@@ -36,6 +38,7 @@ const services = [
     image: serviceIntegrations,
     icon: Plug,
     description: "Seamlessly connect Yardi with your existing technology ecosystem.",
+    details: ["API planning", "Interfaces", "Data exchange controls"],
     link: "/services/integrations",
   },
   {
@@ -44,6 +47,7 @@ const services = [
     image: serviceAutomation,
     icon: Cog,
     description: "Streamline operations and eliminate manual processes with intelligent automation.",
+    details: ["Workflow rules", "Validation checks", "RPA support"],
     link: "/services/automation",
   },
   {
@@ -52,6 +56,7 @@ const services = [
     image: serviceSupport,
     icon: HeadphonesIcon,
     description: "Reliable, ongoing support to keep your Yardi environment running smoothly.",
+    details: ["Help desk", "Release testing", "SLA tracking"],
     link: "/services/support",
   },
   {
@@ -61,6 +66,7 @@ const services = [
     icon: Database,
     description:
       "End-to-end data migration services — from extraction and data mapping to loading and cleansing",
+    details: ["Mapping", "Cleansing", "Load validation"],
     link: "/services/data",
   },
 ];
@@ -126,6 +132,14 @@ const Services = () => {
                   <p className="mb-6 flex-1 text-sm text-muted-foreground">
                     {service.description}
                   </p>
+                  <ul className="mb-6 space-y-2">
+                    {service.details.map((detail) => (
+                      <li key={detail} className="flex items-center gap-2 text-sm text-muted-foreground">
+                        <span className="h-1.5 w-1.5 rounded-full bg-primary" />
+                        {detail}
+                      </li>
+                    ))}
+                  </ul>
                   <Button asChild variant="outline" className="group/btn w-full gap-2">
                     <Link to={service.link}>
                       Learn More

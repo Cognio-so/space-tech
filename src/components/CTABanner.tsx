@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { BOOK_CALL_URL } from "@/lib/contact";
 
 export function CTABanner() {
   return (
@@ -24,10 +25,10 @@ export function CTABanner() {
                 size="lg"
                 className="bg-primary text-white hover:bg-primary/90 shadow-soft px-8 transition-all duration-300 font-bold"
               >
-                <Link to="/contact">
+                <a href={BOOK_CALL_URL} target="_blank" rel="noreferrer">
                   Book a Strategy Call
                   <ArrowRight className="h-4 w-4 ml-2 transition-transform group-hover:translate-x-1" />
-                </Link>
+                </a>
               </Button>
               <Button
                 asChild
